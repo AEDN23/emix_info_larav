@@ -12,15 +12,20 @@ return new class extends Migration {
     {
         Schema::create('coas', function (Blueprint $table) {
             $table->id();
+            $table->string('nomer_coa')->unique();
             $table->string('nama_coa');
-            $table->foreignId('departemen_id')->constrained('departemens')->onDelete('cascade');
+            $table->foreignId('departemen_id')
+                ->constrained('departemens')
+                ->onDelete('cascade');
             $table->string('keterangan');
             $table->string('approve');
             $table->string('tahun');
             $table->string('file');
             $table->string('active');
             $table->string('video');
-            $table->foreignId('created_by')->constrained('users')->onDelete('cascade');
+            $table->foreignId('created_by')
+                ->constrained('users')
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }
