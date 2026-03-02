@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Edit COA')
+@section('title', 'Edit STD')
 
 @section('styles')
     <style>
@@ -71,23 +71,23 @@
 
 @section('content')
     <div class="card">
-        <h2 style="margin-bottom: 25px; color: #333;">Edit Data Certificate of Analysis (COA)</h2>
+        <h2 style="margin-bottom: 25px; color: #333;">Edit Data Support Document (STD)</h2>
 
-        <form action="{{ route('coa.update', $coa->id) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('std.update', $std->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
             <div class="form-group">
-                <label for="nama_coa">Nama COA</label>
-                <input type="text" id="nama_coa" name="nama_coa" value="{{ old('nama_coa', $coa->nama_coa) }}" required>
-                @error('nama_coa') <p class="error">{{ $message }}</p> @enderror
+                <label for="nama_std">Nama STD</label>
+                <input type="text" id="nama_std" name="nama_std" value="{{ old('nama_std', $std->nama_std) }}" required>
+                @error('nama_std') <p class="error">{{ $message }}</p> @enderror
             </div>
 
             <div class="form-group">
                 <label for="departemen_id">Departemen</label>
                 <select id="departemen_id" name="departemen_id" required>
                     @foreach($departemens as $dept)
-                        <option value="{{ $dept->id }}" {{ old('departemen_id', $coa->departemen_id) == $dept->id ? 'selected' : '' }}>
+                        <option value="{{ $dept->id }}" {{ old('departemen_id', $std->departemen_id) == $dept->id ? 'selected' : '' }}>
                             {{ $dept->nama_departemen }}
                         </option>
                     @endforeach
@@ -97,32 +97,32 @@
 
             <div class="form-group">
                 <label for="tahun">Tahun</label>
-                <input type="text" id="tahun" name="tahun" value="{{ old('tahun', $coa->tahun) }}" required>
+                <input type="text" id="tahun" name="tahun" value="{{ old('tahun', $std->tahun) }}" required>
                 @error('tahun') <p class="error">{{ $message }}</p> @enderror
             </div>
 
             <div class="form-group">
                 <label for="file">File Dokumen (Biarkan kosong jika tidak ingin mengubah)</label>
                 <input type="file" id="file" name="file">
-                <small style="color: #888;">File saat ini: <a href="{{ asset('public/storage/' . $coa->file) }}"
+                <small style="color: #888;">File saat ini: <a href="{{ asset('public/storage/' . $std->file) }}"
                         target="_blank">Lihat File</a></small>
                 @error('file') <p class="error">{{ $message }}</p> @enderror
             </div>
 
             <div class="form-group">
                 <label for="video">Link Video</label>
-                <input type="text" id="video" name="video" value="{{ old('video', $coa->video) }}">
+                <input type="text" id="video" name="video" value="{{ old('video', $std->video) }}">
                 @error('video') <p class="error">{{ $message }}</p> @enderror
             </div>
 
             <div class="form-group">
                 <label for="keterangan">Keterangan</label>
-                <textarea id="keterangan" name="keterangan" rows="4">{{ old('keterangan', $coa->keterangan) }}</textarea>
+                <textarea id="keterangan" name="keterangan" rows="4">{{ old('keterangan', $std->keterangan) }}</textarea>
                 @error('keterangan') <p class="error">{{ $message }}</p> @enderror
             </div>
 
             <div style="margin-top: 30px; display: flex; justify-content: flex-end;">
-                <a href="{{ route('coa.index') }}" class="btn-cancel">Batal</a>
+                <a href="{{ route('std.index') }}" class="btn-cancel">Batal</a>
                 <button type="submit" class="btn-submit">Update Data</button>
             </div>
         </form>

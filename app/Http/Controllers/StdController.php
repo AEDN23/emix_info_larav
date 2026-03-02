@@ -5,15 +5,22 @@ namespace App\Http\Controllers;
 use App\Models\std;
 use App\Models\departemen;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class StdController extends Controller
 {
+    /**
+     * 1. Menampilkan daftar seluruh Support Document (STD).
+     */
     public function index()
     {
         $stds = std::with(['departemen', 'creator'])->latest()->get();
         return view('std.index', compact('stds'));
     }
 
+    /**
+     * 2. Menampilkan halaman form tambah data Support Document (STD) baru.
+     */
     public function create()
     {
         $departemens = departemen::all();
@@ -29,6 +36,9 @@ class StdController extends Controller
         return view('std.create', compact('departemens', 'nextNo'));
     }
 
+    /**
+     * 3. Menyimpan data Support Document (STD) baru ke database.
+     */
     public function store(Request $request)
     {
         // Re-generate nomer_std on server side to ensure accuracy
@@ -78,18 +88,27 @@ class StdController extends Controller
         return redirect()->route('std.index')->with('success', 'Data Support Document berhasil ditambahkan.');
     }
 
+    /**
+     * 4. Menampilkan detail data Support Document (STD) tertentu.
+     */
     public function show(std $std)
     {
         $std->load(['departemen', 'creator']);
         return view('std.show', compact('std'));
     }
 
+    /**
+     * 5. Menampilkan halaman form edit data Support Document (STD) tertentu.
+     */
     public function edit(std $std)
     {
         $departemens = departemen::all();
         return view('std.edit', compact('std', 'departemens'));
     }
 
+    /**
+     * 6. Memperbarui data Support Document (STD) yang sudah ada di database.
+     */
     public function update(Request $request, std $std)
     {
         $request->validate([
@@ -126,9 +145,22 @@ class StdController extends Controller
         return redirect()->route('std.index')->with('success', 'Data Support Document berhasil diperbarui.');
     }
 
+    /**
+     * 7. Menghapus data Support Document (STD) dari database.
+     */
     public function destroy(std $std)
     {
+        // Hapus file PDF jika ada
+        if ($std->file && Storage::disk('public')->exists($std->file)) {
+            Storage::disk('public')->delete($std->file);
+        }
+
+        // Hapus file Video jika ada (dan bukan '-')
+        if ($std->video && $std->video !== '-' && Storage::disk('public')->exists($std->video)) {
+            Storage::disk('public')->delete($std->video);
+        }
+
         $std->delete();
-        return redirect()->route('std.index')->with('success', 'Data Support Document berhasil dihapus.');
+        return redirect()->route('std.index')->with('success', 'Data Support Document dan file terkait berhasil dihapus.');
     }
 }

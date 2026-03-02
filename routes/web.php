@@ -25,7 +25,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('coa', CoaController::class);
     Route::resource('wi', WiController::class);
     Route::resource('std', StdController::class);
-    Route::resource('msds', MsdsController::class);
+    Route::resource('msds', MsdsController::class)->parameters([
+        'msds' => 'msds'
+    ]);
 });
 
 Route::middleware(['auth', 'admin'])->group(function () {

@@ -121,9 +121,8 @@
             background: white;
             padding: 20px;
             border-radius: 8px;
-            width: 85%;
-            max-width: 1000px;
-            height: 85%;
+            width: 95%;
+            height: 95%;
             position: relative;
             display: flex;
             flex-direction: column;
@@ -222,14 +221,14 @@
 
                                     @if($std->file)
                                         <button type="button" class="btn-action btn-pdf" title="Lihat PDF"
-                                            onclick="viewPDF('{{ asset('storage/' . $std->file) }}', '{{ $std->nama_std }}')">
+                                            onclick="viewPDF('{{ asset('public/storage/' . $std->file) }}', '{{ $std->nama_std }}')">
                                             <i class="fas fa-file-pdf"></i>
                                         </button>
                                     @endif
 
                                     @if($std->video && $std->video !== '-')
                                         <button type="button" class="btn-action btn-video" title="Lihat Video"
-                                            onclick="viewVideo('{{ asset('storage/' . $std->video) }}', '{{ $std->nama_std }}')">
+                                            onclick="viewVideo('{{ asset('public/storage/' . $std->video) }}', '{{ $std->nama_std }}')">
                                             <i class="fas fa-video"></i>
                                         </button>
                                     @endif

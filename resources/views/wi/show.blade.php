@@ -71,7 +71,7 @@
 
             <div class="label">File Dokumen</div>
             <div class="value">
-                <a href="{{ asset('storage/' . $wi->file) }}" target="_blank"
+                <a href="{{ asset('public/storage/' . $wi->file) }}" target="_blank"
                     style="color: var(--primary-blue); font-weight: 600;">
                     <i class="fas fa-file-pdf"></i> Lihat/Download Dokumen
                 </a>
@@ -80,7 +80,7 @@
             <div class="label">Video</div>
             <div class="value">
                 @if($wi->video && $wi->video != '-')
-                    <a href="{{ asset('storage/' . $wi->video) }}" target="_blank" style="color: #2ecc71; font-weight: 600;">
+                    <a href="{{ asset('public/storage/' . $wi->video) }}" target="_blank" style="color: #2ecc71; font-weight: 600;">
                         <i class="fas fa-video"></i> Tonton Video
                     </a>
                 @else

@@ -5,15 +5,22 @@ namespace App\Http\Controllers;
 use App\Models\msds;
 use App\Models\departemen;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class MsdsController extends Controller
 {
+    /**
+     * 1. Menampilkan daftar seluruh MSDS.
+     */
     public function index()
     {
         $msds_list = msds::with(['departemen', 'creator'])->latest()->get();
         return view('msds.index', compact('msds_list'));
     }
 
+    /**
+     * 2. Menampilkan halaman form tambah data MSDS baru.
+     */
     public function create()
     {
         $departemens = departemen::all();
@@ -29,6 +36,9 @@ class MsdsController extends Controller
         return view('msds.create', compact('departemens', 'nextNo'));
     }
 
+    /**
+     * 3. Menyimpan data MSDS baru ke database.
+     */
     public function store(Request $request)
     {
         // Re-generate nomer_msds on server side to ensure accuracy
@@ -76,18 +86,27 @@ class MsdsController extends Controller
         return redirect()->route('msds.index')->with('success', 'Data MSDS berhasil ditambahkan.');
     }
 
+    /**
+     * 4. Menampilkan detail data MSDS tertentu.
+     */
     public function show(msds $msds)
     {
         $msds->load(['departemen', 'creator']);
         return view('msds.show', compact('msds'));
     }
 
+    /**
+     * 5. Menampilkan halaman form edit data MSDS tertentu.
+     */
     public function edit(msds $msds)
     {
         $departemens = departemen::all();
         return view('msds.edit', compact('msds', 'departemens'));
     }
 
+    /**
+     * 6. Memperbarui data MSDS yang sudah ada di database.
+     */
     public function update(Request $request, msds $msds)
     {
         $request->validate([
@@ -124,9 +143,22 @@ class MsdsController extends Controller
         return redirect()->route('msds.index')->with('success', 'Data MSDS berhasil diperbarui.');
     }
 
+    /**
+     * 7. Menghapus data MSDS dari database.
+     */
     public function destroy(msds $msds)
     {
+        // Hapus file PDF jika ada
+        if ($msds->file && Storage::disk('public')->exists($msds->file)) {
+            Storage::disk('public')->delete($msds->file);
+        }
+
+        // Hapus file Video jika ada (dan bukan '-')
+        if ($msds->video && $msds->video !== '-' && Storage::disk('public')->exists($msds->video)) {
+            Storage::disk('public')->delete($msds->video);
+        }
+
         $msds->delete();
-        return redirect()->route('msds.index')->with('success', 'Data MSDS berhasil dihapus.');
+        return redirect()->route('msds.index')->with('success', 'Data MSDS dan file terkait berhasil dihapus.');
     }
 }

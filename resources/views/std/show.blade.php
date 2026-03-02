@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Detail COA')
+@section('title', 'Detail STD')
 
 @section('styles')
     <style>
@@ -45,30 +45,29 @@
 @endsection
 
 @section('content')
-    <a href="{{ route('coa.index') }}" class="btn-back">
+    <a href="{{ route('std.index') }}" class="btn-back">
         <i class="fas fa-arrow-left"></i> Kembali ke Daftar
     </a>
 
     <div class="card">
-        <h2 style="border-bottom: 2px solid #eee; padding-bottom: 15px; color: var(--primary-blue);">Detail Certificate of
-            Analysis (COA)</h2>
+        <h2 style="border-bottom: 2px solid #eee; padding-bottom: 15px; color: var(--primary-blue);">Detail Support Document (STD)</h2>
 
         <div class="detail-grid">
-            <div class="label">Nama COA</div>
-            <div class="value">{{ $coa->nama_coa }}</div>
+            <div class="label">Nama STD</div>
+            <div class="value">{{ $std->nama_std }}</div>
 
             <div class="label">Departemen</div>
-            <div class="value">{{ $coa->departemen->nama_departemen ?? '-' }}</div>
+            <div class="value">{{ $std->departemen->nama_departemen ?? '-' }}</div>
 
             <div class="label">Tahun</div>
-            <div class="value">{{ $coa->tahun }}</div>
+            <div class="value">{{ $std->tahun }}</div>
 
             <div class="label">Keterangan</div>
-            <div class="value">{{ $coa->keterangan }}</div>
+            <div class="value">{{ $std->keterangan }}</div>
 
             <div class="label">File Dokumen</div>
             <div class="value">
-                <a href="{{ asset('public/storage/' . $coa->file) }}" target="_blank"
+                <a href="{{ asset('public/storage/' . $std->file) }}" target="_blank"
                     style="color: var(--primary-blue); font-weight: 600;">
                     <i class="fas fa-file-download"></i> Lihat/Download Dokumen
                 </a>
@@ -76,9 +75,8 @@
 
             <div class="label">Video</div>
             <div class="value">
-                @if($coa->video && $coa->video != '-')
-                    <a href="{{ asset('public/storage/' . $coa->video) }}" target="_blank"
-                        style="color: #2ecc71; font-weight: 600;">
+                @if($std->video && $std->video != '-')
+                    <a href="{{ asset('public/storage/' . $std->video) }}" target="_blank" style="color: #2ecc71; font-weight: 600;">
                         <i class="fas fa-video"></i> Tonton Video
                     </a>
                 @else
@@ -87,10 +85,10 @@
             </div>
 
             <div class="label">Dibuat Oleh</div>
-            <div class="value">{{ $coa->creator->name ?? '-' }}</div>
+            <div class="value">{{ $std->creator->name ?? '-' }}</div>
 
             <div class="label">Waktu Input</div>
-            <div class="value">{{ $coa->created_at->format('d M Y, H:i') }}</div>
+            <div class="value">{{ $std->created_at->format('d M Y, H:i') }}</div>
         </div>
     </div>
 @endsection

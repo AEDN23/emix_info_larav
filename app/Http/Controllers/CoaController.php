@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\coa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class CoaController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * 1. Menampilkan daftar seluruh COA.
      */
     public function index()
     {
@@ -16,6 +17,9 @@ class CoaController extends Controller
         return view('coa.index', compact('coas'));
     }
 
+    /**
+     * 2. Menampilkan halaman form tambah data COA baru.
+     */
     public function create()
     {
         $departemens = \App\Models\departemen::all();
@@ -31,6 +35,9 @@ class CoaController extends Controller
         return view('coa.create', compact('departemens', 'nextNo'));
     }
 
+    /**
+     * 3. Menyimpan data COA baru ke database.
+     */
     public function store(Request $request)
     {
         // Re-generate nomer_coa on server side to ensure accuracy
@@ -83,6 +90,9 @@ class CoaController extends Controller
     /**
      * Display the specified resource.
      */
+    /**
+     * 4. Menampilkan detail data COA tertentu.
+     */
     public function show(coa $coa)
     {
         $coa->load(['departemen', 'creator']);
@@ -90,7 +100,7 @@ class CoaController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * 5. Menampilkan halaman form edit data COA tertentu.
      */
     public function edit(coa $coa)
     {
@@ -98,6 +108,9 @@ class CoaController extends Controller
         return view('coa.edit', compact('coa', 'departemens'));
     }
 
+    /**
+     * 6. Memperbarui data COA yang sudah ada di database.
+     */
     public function update(Request $request, coa $coa)
     {
         $request->validate([
@@ -134,9 +147,22 @@ class CoaController extends Controller
         return redirect()->route('coa.index')->with('success', 'Data COA berhasil diperbarui.');
     }
 
+    /**
+     * 7. Menghapus data COA dari database.
+     */
     public function destroy(coa $coa)
     {
+        // Hapus file PDF jika ada
+        if ($coa->file && Storage::disk('public')->exists($coa->file)) {
+            Storage::disk('public')->delete($coa->file);
+        }
+
+        // Hapus file Video jika ada (dan bukan '-')
+        if ($coa->video && $coa->video !== '-' && Storage::disk('public')->exists($coa->video)) {
+            Storage::disk('public')->delete($coa->video);
+        }
+
         $coa->delete();
-        return redirect()->route('coa.index')->with('success', 'Data COA berhasil dihapus.');
+        return redirect()->route('coa.index')->with('success', 'Data COA dan file terkait berhasil dihapus.');
     }
 }

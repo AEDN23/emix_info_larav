@@ -121,9 +121,8 @@
             background: white;
             padding: 20px;
             border-radius: 8px;
-            width: 85%;
-            max-width: 1000px;
-            height: 85%;
+            width: 95%;
+            height: 95%;
             position: relative;
             display: flex;
             flex-direction: column;
