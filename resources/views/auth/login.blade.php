@@ -230,8 +230,7 @@
             @csrf
             <div class="form-group">
                 <label for="username">Username:</label>
-                <input type="text" id="username" name="username" value="{{ old('username') }}" placeholder="username"
-                    required autofocus>
+                <input type="text" id="username" name="username" value="user" placeholder="username" required autofocus>
                 @error('username')
                     <p class="error-text">{{ $message }}</p>
                 @enderror
@@ -239,7 +238,7 @@
 
             <div class="form-group">
                 <label for="password">Password:</label>
-                <input type="password" id="password" name="password" placeholder="••••••••" required>
+                <input type="password" id="password" name="password" value="password" required>
                 @error('password')
                     <p class="error-text">{{ $message }}</p>
                 @enderror
@@ -247,10 +246,6 @@
 
             <p class="help-text">Masuk langsung Jika login sebagai user</p>
 
-            <div class="actions">
-                <button type="submit" class="btn btn-primary">Masuk</button>
-                <a href="#" class="btn btn-outline">Register</a>
-            </div>
         </form>
     </main>
 

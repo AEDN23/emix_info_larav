@@ -108,7 +108,7 @@
 
     <div class="dashboard-grid">
         <!-- Work Instructions Card -->
-        <div class="stat-card card-wi">
+        <a href="{{ route('wi.index') }}" class="stat-card card-wi" style="text-decoration: none;">
             <div class="stat-header">
                 <div class="stat-icon">
                     <i class="fas fa-check-circle"></i>
@@ -118,14 +118,14 @@
                     <div class="stat-label">Work Instructions</div>
                 </div>
             </div>
-            <a href="{{ route('wi.index') }}" class="stat-footer">
+            <div class="stat-footer">
                 Lihat Data
                 <i class="fas fa-arrow-circle-right"></i>
-            </a>
-        </div>
+            </div>
+        </a>
 
         <!-- Support Document Card -->
-        <div class="stat-card card-std">
+        <a href="{{ route('std.index') }}" class="stat-card card-std" style="text-decoration: none;">
             <div class="stat-header">
                 <div class="stat-icon">
                     <i class="fas fa-check-circle"></i>
@@ -135,14 +135,14 @@
                     <div class="stat-label">Support Document</div>
                 </div>
             </div>
-            <a href="{{ route('std.index') }}" class="stat-footer">
+            <div class="stat-footer">
                 Lihat Data
                 <i class="fas fa-arrow-circle-right"></i>
-            </a>
-        </div>
+            </div>
+        </a>
 
         <!-- MSDS Card -->
-        <div class="stat-card card-msds">
+        <a href="{{ route('msds.index') }}" class="stat-card card-msds" style="text-decoration: none;">
             <div class="stat-header">
                 <div class="stat-icon">
                     <i class="fas fa-check-circle"></i>
@@ -152,14 +152,14 @@
                     <div class="stat-label">MSDS</div>
                 </div>
             </div>
-            <a href="{{ route('msds.index') }}" class="stat-footer">
+            <div class="stat-footer">
                 Lihat Data
                 <i class="fas fa-arrow-circle-right"></i>
-            </a>
-        </div>
+            </div>
+        </a>
 
         <!-- COA Card -->
-        <div class="stat-card card-coa">
+        <a href="{{ route('coa.index') }}" class="stat-card card-coa" style="text-decoration: none;">
             <div class="stat-header">
                 <div class="stat-icon">
                     <i class="fas fa-check-circle"></i>
@@ -169,10 +169,10 @@
                     <div class="stat-label">Certificate of Analysis (COA)</div>
                 </div>
             </div>
-            <a href="{{ route('coa.index') }}" class="stat-footer">
+            <div class="stat-footer">
                 Lihat Data
                 <i class="fas fa-arrow-circle-right"></i>
-            </a>
-        </div>
+            </div>
+        </a>
     </div>
 @endsection

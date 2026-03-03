@@ -163,7 +163,7 @@
     <div class="card">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
             <h2 style="font-size: 1.25rem; color: #333;">Daftar Certificate of Analysis (COA)</h2>
-            @if(Auth::user()->role === 'admin' || Auth::user()->role === 'leader')
+           @if(Auth::user()->role === 'admin')
                 <a href="{{ route('coa.create') }}" class="btn-add">
                     <i class="fas fa-plus"></i> Tambah Data
                 </a>

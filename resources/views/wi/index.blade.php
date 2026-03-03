@@ -185,7 +185,7 @@
                         <th>Nama WI</th>
                         <th>Departemen</th>
                         <th>Tahun</th>
-                        <th>Status</th>
+                        <th>keterangan</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -198,9 +198,7 @@
                             <td>{{ $wi->departemen->nama_departemen ?? '-' }}</td>
                             <td>{{ $wi->tahun }}</td>
                             <td>
-                                <span class="badge {{ $wi->active == '1' ? 'badge-active' : 'badge-inactive' }}">
-                                    {{ $wi->active == '1' ? 'Active' : 'Inactive' }}
-                                </span>
+                                {{ $wi->keterangan }}
                             </td>
                             <td>
                                 <div style="display: flex;">

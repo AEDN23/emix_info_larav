@@ -94,8 +94,8 @@
             </div>
 
             <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" value="{{ old('email', $user->email) }}" required>
+                <label for="email">Email (Opsional)</label>
+                <input type="email" id="email" name="email" value="{{ old('email', $user->email) }}">
                 @error('email') <p class="error">{{ $message }}</p> @enderror
             </div>
 

@@ -185,7 +185,7 @@
                         <th>Nama STD</th>
                         <th>Departemen</th>
                         <th>Tahun</th>
-                        <th>Status</th>
+                        <th>keterangan</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -198,18 +198,13 @@
                             <td>{{ $std->departemen->nama_departemen ?? '-' }}</td>
                             <td>{{ $std->tahun }}</td>
                             <td>
-                                <span class="badge {{ $std->active == '1' ? 'badge-active' : 'badge-inactive' }}">
-                                    {{ $std->active == '1' ? 'Active' : 'Inactive' }}
-                                </span>
+                                {{ $std->keterangan }}
                             </td>
                             <td>
                                 <div style="display: flex;">
-                                    <a href="{{ route('std.show', $std->id) }}" class="btn-action btn-view" title="Detail"><i
-                                            class="fas fa-eye"></i></a>
+
 
                                     @if(Auth::user()->role === 'admin')
-                                        <a href="{{ route('std.edit', $std->id) }}" class="btn-action btn-edit" title="Edit"><i
-                                                class="fas fa-edit"></i></a>
                                         <form action="{{ route('std.destroy', $std->id) }}" method="POST"
                                             onsubmit="return confirm('Yakin?')">
                                             @csrf
@@ -217,7 +212,12 @@
                                             <button type="submit" class="btn-action btn-delete" title="Hapus"><i
                                                     class="fas fa-trash"></i></button>
                                         </form>
+                                        <a href="{{ route('std.edit', $std->id) }}" class="btn-action btn-edit" title="Edit"><i
+                                                class="fas fa-edit"></i></a>
+
                                     @endif
+                                    <a href="{{ route('std.show', $std->id) }}" class="btn-action btn-view" title="Detail"><i
+                                            class="fas fa-eye"></i></a>
 
                                     @if($std->file)
                                         <button type="button" class="btn-action btn-pdf" title="Lihat PDF"

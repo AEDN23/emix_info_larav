@@ -13,10 +13,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\departemen::create(['nama_departemen' => 'QC', 'deskripsi' => 'Quality Control']);
-        \App\Models\departemen::create(['nama_departemen' => 'QA', 'deskripsi' => 'Quality Assurance']);
-        \App\Models\departemen::create(['nama_departemen' => 'PRODUCTION', 'deskripsi' => 'Production Department']);
-        \App\Models\departemen::create(['nama_departemen' => 'LAB', 'deskripsi' => 'Laboratory']);
+        // \App\Models\departemen::create(['nama_departemen' => 'QC', 'deskripsi' => 'Quality Control']);
+        // \App\Models\departemen::create(['nama_departemen' => 'QA', 'deskripsi' => 'Quality Assurance']);
+        // \App\Models\departemen::create(['nama_departemen' => 'PRODUCTION', 'deskripsi' => 'Production Department']);
+        // \App\Models\departemen::create(['nama_departemen' => 'LAB', 'deskripsi' => 'Laboratory']);
 
         // User::factory(10)->create();
 
@@ -42,11 +42,11 @@ class DatabaseSeeder extends Seeder
             'role' => 'leader',
         ]);
         // Create Sample Documents
-        $this->call([
-            CoaSeeder::class,
-            WiSeeder::class,
-            StdSeeder::class,
-            MsdsSeeder::class,
-        ]);
+        // $this->call([
+        //     CoaSeeder::class,
+        //     WiSeeder::class,
+        //     StdSeeder::class,
+        //     MsdsSeeder::class,
+        // ]);
     }
 }

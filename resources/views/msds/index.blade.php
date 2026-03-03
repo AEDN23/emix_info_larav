@@ -163,7 +163,7 @@
     <div class="card">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
             <h2 style="font-size: 1.25rem; color: #333;">Daftar MSDS (Safety Data Sheet)</h2>
-            @if(Auth::user()->role === 'admin')
+            @if(Auth::user()->role === 'admin' || Auth::user()->role === 'leader')
                 <a href="{{ route('msds.create') }}" class="btn-add">
                     <i class="fas fa-plus"></i> Tambah Data
                 </a>
@@ -185,7 +185,7 @@
                         <th>Nama MSDS</th>
                         <th>Departemen</th>
                         <th>Tahun</th>
-                        <th>Status</th>
+                        <th>keterangan</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -198,18 +198,12 @@
                             <td>{{ $msds->departemen->nama_departemen ?? '-' }}</td>
                             <td>{{ $msds->tahun }}</td>
                             <td>
-                                <span class="badge {{ $msds->active == '1' ? 'badge-active' : 'badge-inactive' }}">
-                                    {{ $msds->active == '1' ? 'Active' : 'Inactive' }}
-                                </span>
+                                {{ $msds->keterangan }}
                             </td>
                             <td>
                                 <div style="display: flex;">
-                                    <a href="{{ route('msds.show', $msds->id) }}" class="btn-action btn-view" title="Detail"><i
-                                            class="fas fa-eye"></i></a>
 
                                     @if(Auth::user()->role === 'admin')
-                                        <a href="{{ route('msds.edit', $msds->id) }}" class="btn-action btn-edit" title="Edit"><i
-                                                class="fas fa-edit"></i></a>
                                         <form action="{{ route('msds.destroy', $msds->id) }}" method="POST"
                                             onsubmit="return confirm('Yakin?')">
                                             @csrf
@@ -217,7 +211,12 @@
                                             <button type="submit" class="btn-action btn-delete" title="Hapus"><i
                                                     class="fas fa-trash"></i></button>
                                         </form>
+                                        <a href="{{ route('msds.edit', $msds->id) }}" class="btn-action btn-edit" title="Edit"><i
+                                                class="fas fa-edit"></i></a>
+
                                     @endif
+                                    <a href="{{ route('msds.show', $msds->id) }}" class="btn-action btn-view" title="Detail"><i
+                                            class="fas fa-eye"></i></a>
 
                                     @if($msds->file)
                                         <button type="button" class="btn-action btn-pdf" title="Lihat PDF"
