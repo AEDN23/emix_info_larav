@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Grade Chart Data</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="{{ asset('public/css/css2.css') }}" rel="stylesheet">
     <style>
         :root {
             --primary: #2563eb;
@@ -221,8 +221,8 @@
     <main class="login-card">
         <div class="logo-section">
             {{-- Using generated logo path if possible, or placeholder --}}
-            <img src="/emix_logo.png" alt="EMIX Logo" class="logo-placeholder"
-                onerror="this.src='https://via.placeholder.com/120x60?text=EMIX'">
+            <img src="{{ asset('public/storage/foto/1.png') }}" alt="EMIX Logo" class="logo-placeholder"
+                onerror="this.src='/emix_logo.png'">
             <h1>Grade Chart Data</h1>
         </div>
 
@@ -245,7 +245,9 @@
             </div>
 
             <p class="help-text">Masuk langsung Jika login sebagai user</p>
-
+            <div class="actions">
+                <button type="submit" class="btn btn-primary">Masuk</button>
+            </div>
         </form>
     </main>
 
