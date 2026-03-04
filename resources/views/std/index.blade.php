@@ -245,9 +245,10 @@
     <!-- Modal PDF -->
     <div id="pdfModal" class="modal-overlay">
         <div class="modal-container">
-            <div class="modal-header">
-                <h3 id="pdfTitle">PDF Viewer</h3>
-                <button class="modal-close" onclick="closeModal('pdfModal')">&times;</button>
+            <div class="modal-header" style="display: block; border-bottom: none; padding: 10px 0;">
+                <h4 style="margin: 0; font-weight: bold; color: #000; font-size: 1.1rem;">DETAIL SUPPORT DOCUMENT</h4>
+                <h4 id="pdfTitle" style="margin: 5px 0; font-weight: bold; color: #000; font-size: 1.1rem;">NAMA STD : </h4>
+                <a href="javascript:void(0)" onclick="closeModal('pdfModal')" style="color: #000080; text-decoration: none; font-size: 0.9rem; font-weight: 500;">Close</a>
             </div>
             <div class="modal-body">
                 <iframe id="pdfViewer" src="" type="application/pdf"></iframe>
@@ -258,9 +259,10 @@
     <!-- Modal Video -->
     <div id="videoModal" class="modal-overlay">
         <div class="modal-container">
-            <div class="modal-header">
-                <h3 id="videoTitle">Video Player</h3>
-                <button class="modal-close" onclick="closeModal('videoModal')">&times;</button>
+            <div class="modal-header" style="display: block; border-bottom: none; padding: 10px 0;">
+                <h4 style="margin: 0; font-weight: bold; color: #000; font-size: 1.1rem;">DETAIL SUPPORT DOCUMENT</h4>
+                <h4 id="videoTitle" style="margin: 5px 0; font-weight: bold; color: #000; font-size: 1.1rem;">NAMA STD : </h4>
+                <a href="javascript:void(0)" onclick="closeModal('videoModal')" style="color: #000080; text-decoration: none; font-size: 0.9rem; font-weight: 500;">Close</a>
             </div>
             <div class="modal-body">
                 <video id="videoPlayer" controls style="width: 100%; height: 100%;">
@@ -283,13 +285,13 @@
         });
 
         function viewPDF(url, title) {
-            document.getElementById('pdfTitle').innerText = 'Dokumen: ' + title;
+            document.getElementById('pdfTitle').innerText = 'NAMA STD : ' + title.toUpperCase();
             document.getElementById('pdfViewer').src = url;
             document.getElementById('pdfModal').style.display = 'flex';
         }
 
         function viewVideo(url, title) {
-            document.getElementById('videoTitle').innerText = 'Video: ' + title;
+            document.getElementById('videoTitle').innerText = 'NAMA STD : ' + title.toUpperCase();
             const player = document.getElementById('videoPlayer');
             const source = document.getElementById('videoSource');
             source.src = url;
