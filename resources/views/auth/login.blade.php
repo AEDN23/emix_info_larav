@@ -4,253 +4,224 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Grade Chart Data</title>
+    <title>Login | EMIX INFO</title>
+    <link rel="shortcut icon" href="{{ asset('public/storage/foto/icon.png') }}?v=1" type="image/png">
+    <link rel="icon" href="{{ asset('public/storage/foto/icon.png') }}?v=1" type="image/png">
+    <link href="{{ asset('public/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('public/css/css2.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('public/css/all.min.css') }}">
     <style>
         :root {
-            --primary: #2563eb;
-            --secondary: #10b981;
-            --bg-gradient: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
-            --text-main: #1f2937;
-            --text-muted: #6b7280;
-            --card-bg: #ffffff;
-            --input-border: #d1d5db;
-            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --dark: #0f172a;
         }
 
         body {
-            background: var(--bg-gradient);
-            min-height: 100vh;
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            height: 100vh;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            margin: 0;
+            overflow: hidden;
         }
 
-        .alert-container {
+        .login-container {
             width: 100%;
             max-width: 450px;
-            margin-bottom: 20px;
-            animation: fadeInDown 0.5s ease-out;
-        }
-
-        .alert {
-            background-color: #fee2e2;
-            border: 1px solid #fecaca;
-            color: #991b1b;
-            padding: 12px 16px;
-            border-radius: 8px;
-            position: relative;
-            font-size: 0.9rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
-
-        .alert .close-btn {
-            background: none;
-            border: none;
-            color: #991b1b;
-            cursor: pointer;
-            font-size: 1.2rem;
-            font-weight: bold;
-            line-height: 1;
+            padding: 20px;
+            perspective: 1000px;
         }
 
         .login-card {
-            background: var(--card-bg);
-            width: 100%;
-            max-width: 450px;
-            padding: 40px;
-            border-radius: 16px;
-            box-shadow: var(--shadow);
-            text-align: center;
-            animation: scaleIn 0.4s ease-out;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+            padding: 48px;
+            animation: cardAppear 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .logo-section {
-            margin-bottom: 30px;
+        @keyframes cardAppear {
+            from {
+                opacity: 0;
+                transform: translateY(40px) scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
         }
 
-        .logo-placeholder {
-            width: 120px;
-            height: auto;
-            margin: 0 auto 15px;
-            display: block;
-        }
-
-        h1 {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: var(--text-main);
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-            margin-bottom: 30px;
-        }
-
-        .form-group {
-            text-align: left;
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            font-size: 0.875rem;
-            font-weight: 600;
-            color: var(--text-main);
-            margin-bottom: 8px;
-        }
-
-        input {
-            width: 100%;
-            padding: 12px 16px;
-            border: 1px solid var(--input-border);
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: all 0.2s;
-            outline: none;
-        }
-
-        input:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-        }
-
-        .help-text {
-            font-size: 0.8125rem;
-            color: var(--text-muted);
-            margin-bottom: 20px;
-            text-align: left;
-        }
-
-        .actions {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .btn {
-            width: 100%;
-            padding: 12px;
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            text-decoration: none;
+        .brand-logo {
+            width: 64px;
+            height: 64px;
+            background: var(--primary);
+            border-radius: 18px;
             display: flex;
             align-items: center;
             justify-content: center;
-        }
-
-        .btn-primary {
-            background-color: var(--secondary);
             color: white;
+            font-size: 28px;
+            margin: 0 auto 24px;
+            box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.3);
         }
 
-        .btn-primary:hover {
-            background-color: #059669;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+        .login-title {
+            color: var(--dark);
+            font-weight: 800;
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 8px;
         }
 
-        .btn-outline {
-            background-color: var(--primary);
+        .login-subtitle {
+            color: #64748b;
+            text-align: center;
+            font-size: 14px;
+            margin-bottom: 32px;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: #334155;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .input-group {
+            background: #f1f5f9;
+            border-radius: 12px;
+            padding: 4px;
+            border: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .input-group:focus-within {
+            background: white;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+        }
+
+        .input-group-text {
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            padding-left: 16px;
+        }
+
+        .form-control {
+            background: transparent;
+            border: none;
+            padding: 12px 16px;
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .form-control:focus {
+            background: transparent;
+            box-shadow: none;
+        }
+
+        .btn-login {
+            background: var(--primary);
             color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 14px;
+            font-weight: 700;
+            font-size: 16px;
+            width: 100%;
+            margin-top: 24px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.2);
         }
 
-        .btn-outline:hover {
-            background-color: #1d4ed8;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+        .btn-login:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.3);
         }
 
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .btn-login:active {
+            transform: translateY(0);
         }
 
-        @keyframes scaleIn {
-            from {
-                opacity: 0;
-                transform: scale(0.95);
-            }
-
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
+        .alert {
+            border-radius: 12px;
+            font-size: 14px;
+            border: none;
         }
 
-        .error-text {
-            color: #dc2626;
-            font-size: 0.75rem;
-            margin-top: 4px;
+        .footer-text {
+            text-align: center;
+            margin-top: 32px;
+            color: #94a3b8;
+            font-size: 12px;
         }
     </style>
 </head>
 
 <body>
+    <div class="login-container">
+        <div class="login-card">
+            <!-- <div class="brand-logo">
+                <i class="fas fa-layer-group"></i>
+            </div> -->
+            <img src="{{ asset('public/storage/foto/1.png') }}" alt="Logo" class="img-fluid mb-4"
+                style="max-width: 100px; display: block; margin: 0 auto;">
+            <h1 class="login-title">Selamat Datang</h1>
+            <p class="login-subtitle">Silakan masuk untuk mengelola Emix Info</p>
 
-    @if(session('error') || $errors->any())
-        <div class="alert-container">
-            <div class="alert">
-                <span>Silakan login terlebih dahulu!</span>
-                <button class="close-btn" onclick="this.parentElement.parentElement.remove()">&times;</button>
+            @if($errors->any() || session('error'))
+                <div class="alert alert-danger mb-4">
+                    <ul class="mb-0 list-unstyled">
+                        @if(session('error'))
+                            <li><i class="fas fa-exclamation-circle me-2"></i>{{ session('error') }}</li>
+                        @endif
+                        @foreach($errors->all() as $error)
+                            <li><i class="fas fa-exclamation-circle me-2"></i>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            <form action="{{ route('login') }}" method="POST">
+                @csrf
+                <div class="mb-4">
+                    <label class="form-label">Username</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                        <input type="text" name="username" class="form-control" placeholder="user"
+                            value="{{ old('username', 'user') }}" required autofocus>
+                    </div>
+                </div>
+
+                <div class="mb-2">
+                    <label class="form-label">Password</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                        <input type="password" name="password" class="form-control" placeholder="password"
+                            value="password" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-login">
+                    Masuk ke Sistem <i class="fas fa-arrow-right ms-2"></i>
+                </button>
+            </form>
+
+            <div class="footer-text">
+                &copy; {{ date('Y') }} PT. Elastomix Indonesia.
             </div>
         </div>
-    @endif
-
-    <main class="login-card">
-        <div class="logo-section">
-            {{-- Using generated logo path if possible, or placeholder --}}
-            <img src="{{ asset('public/storage/foto/1.png') }}" alt="EMIX Logo" class="logo-placeholder"
-                onerror="this.src='/emix_logo.png'">
-            <h1>Grade Chart Data</h1>
-        </div>
-
-        <form action="{{ route('login') }}" method="POST">
-            @csrf
-            <div class="form-group">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" value="user" placeholder="username" required autofocus>
-                @error('username')
-                    <p class="error-text">{{ $message }}</p>
-                @enderror
-            </div>
-
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" value="password" required>
-                @error('password')
-                    <p class="error-text">{{ $message }}</p>
-                @enderror
-            </div>
-
-            <p class="help-text">Masuk langsung Jika login sebagai user</p>
-            <div class="actions">
-                <button type="submit" class="btn btn-primary">Masuk</button>
-            </div>
-        </form>
-    </main>
-
+    </div>
 </body>
 
 </html>

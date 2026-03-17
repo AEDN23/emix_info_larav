@@ -2,177 +2,184 @@
 
 @section('title', 'Beranda')
 
-@section('styles')
+@section('content')
+    <div class="row g-4">
+        <!-- Hero Section -->
+        <div class="col-12">
+            <div class="card border-0 text-white overflow-hidden shadow-sm"
+                style="background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); min-height: 250px; position: relative; border-radius: 8px;">
+                <div class="card-body p-5 d-flex flex-column justify-content-center"
+                    style="position: relative; z-index: 2;">
+                    <h1 class="display-5 fw-bold mb-3">Selamat Datang di Emix Info</h1>
+                    <div class="d-flex flex-wrap gap-2 mt-2">
+                        <a href="{{ route('wi.index') }}" class="btn btn-outline-light px-4 py-2 fw-bold rounded-pill">Lihat
+                            Data WI</a>
+                        <a href="{{ route('std.index') }}"
+                            class="btn btn-outline-light px-4 py-2 fw-bold rounded-pill">Lihat Data STD</a>
+                        <a href="{{ route('msds.index') }}"
+                            class="btn btn-outline-light px-4 py-2 fw-bold rounded-pill">Lihat Data MSDS</a>
+                        <a href="{{ route('coa.index') }}"
+                            class="btn btn-outline-light px-4 py-2 fw-bold rounded-pill">Lihat Data COA</a>
+                    </div>
+                </div>
+                <!-- Dynamic blob background effect -->
+                <div
+                    style="position: absolute; right: -50px; bottom: -50px; width: 300px; height: 300px; background: rgba(255,255,255,0.1); border-radius: 50%; z-index: 1;">
+                </div>
+                <div
+                    style="position: absolute; right: 80px; top: -30px; width: 150px; height: 150px; background: rgba(255,255,255,0.05); border-radius: 50%; z-index: 1;">
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Section -->
+        <div class="col-md-3 col-sm-6">
+            <a href="{{ route('wi.index') }}" class="text-decoration-none">
+                <div class="card border-0 shadow-sm h-100 p-2" style="border-radius: 8px;">
+                    <div class="card-body d-flex align-items-center">
+                        <div class="bg-primary bg-opacity-10 text-primary rounded-3 p-3 me-3 d-flex align-items-center justify-content-center"
+                            style="min-width: 60px;">
+                            <i class="fas fa-file-alt fa-2x"></i>
+                        </div>
+                        <div>
+                            <h6 class="text-muted mb-1" style="font-size: 0.85rem; font-weight: 700;">Working Instructions
+                            </h6>
+                            <h3 class="fw-bold mb-0 text-dark">{{ \App\Models\Wi::count() }}</h3>
+                            <small class="text-success small fw-bold" style="font-size: 0.75rem;">Dokumen Terdaftar</small>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-md-3 col-sm-6">
+            <a href="{{ route('std.index') }}" class="text-decoration-none">
+                <div class="card border-0 shadow-sm h-100 p-2" style="border-radius: 8px;">
+                    <div class="card-body d-flex align-items-center">
+                        <div class="bg-indigo bg-opacity-10 rounded-3 p-3 me-3 d-flex align-items-center justify-content-center"
+                            style="color: #6366f1; background-color: #eef2ff; min-width: 60px;">
+                            <i class="fas fa-file-contract fa-2x"></i>
+                        </div>
+                        <div>
+                            <h6 class="text-muted mb-1" style="font-size: 0.85rem; font-weight: 700;">Standard (STD)</h6>
+                            <h3 class="fw-bold mb-0 text-dark">{{ \App\Models\Std::count() }}</h3>
+                            <small class="text-success small fw-bold" style="font-size: 0.75rem;">Dokumen Terdaftar</small>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-md-3 col-sm-6">
+            <a href="{{ route('msds.index') }}" class="text-decoration-none">
+                <div class="card border-0 shadow-sm h-100 p-2" style="border-radius: 8px;">
+                    <div class="card-body d-flex align-items-center">
+                        <div class="bg-danger bg-opacity-10 text-danger rounded-3 p-3 me-3 d-flex align-items-center justify-content-center"
+                            style="min-width: 60px;">
+                            <i class="fas fa-file-medical fa-2x"></i>
+                        </div>
+                        <div>
+                            <h6 class="text-muted mb-1" style="font-size: 0.85rem; font-weight: 700;">MSDS</h6>
+                            <h3 class="fw-bold mb-0 text-dark">{{ \App\Models\Msds::count() }}</h3>
+                            <small class="text-success small fw-bold" style="font-size: 0.75rem;">Dokumen Terdaftar</small>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <a href="{{ route('coa.index') }}" style="text-decoration: none;">
+                <div class="card border-0 shadow-sm h-100 p-2" style="border-radius: 8px;">
+                    <div class="card-body d-flex align-items-center">
+                        <div class="bg-success bg-opacity-10 text-success rounded-3 p-3 me-3 d-flex align-items-center justify-content-center"
+                            style="min-width: 60px;">
+                            <i class="fas fa-file-signature fa-2x"></i>
+                        </div>
+
+                        <div>
+                            <h6 class="text-muted mb-1" style="font-size: 0.85rem; font-weight: 700;">COA</h6>
+                            <h3 class="fw-bold mb-0 text-dark">{{ \App\Models\Coa::count() }}</h3>
+                            <small class="text-success small fw-bold" style="font-size: 0.75rem;">Dokumen Terdaftar</small>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Quick Actions (Admin Only) -->
+        @if(Auth::user()->role === 'admin')
+            <div class="col-12 mt-5">
+                <h5 class="fw-bold mb-3 text-center text-dark" style="font-size: 1.1rem;">Akses Cepat Admin</h5>
+                <div class="row g-3 justify-content-center">
+                    <div class="col-md-2 col-sm-6">
+                        <a href="{{ route('wi.create') }}" class="text-decoration-none">
+                            <div class="card border-0 shadow-sm text-center p-4 h-100 hover-lift" style="border-radius: 8px;">
+                                <div class="bg-primary rounded-circle d-inline-flex mx-auto mb-3 justify-content-center align-items-center text-white"
+                                    style="width: 50px; height: 50px;">
+                                    <i class="fas fa-plus"></i>
+                                </div>
+                                <span class="fw-bold text-dark" style="font-size: 0.9rem;">Tambah WI</span>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-2 col-sm-6">
+                        <a href="{{ route('std.create') }}" class="text-decoration-none">
+                            <div class="card border-0 shadow-sm text-center p-4 h-100 hover-lift" style="border-radius: 8px;">
+                                <div class="bg-primary rounded-circle d-inline-flex mx-auto mb-3 justify-content-center align-items-center text-white"
+                                    style="width: 50px; height: 50px;">
+                                    <i class="fas fa-plus"></i>
+                                </div>
+                                <span class="fw-bold text-dark" style="font-size: 0.9rem;">Tambah STD</span>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-2 col-sm-6">
+                        <a href="{{ route('msds.create') }}" class="text-decoration-none">
+                            <div class="card border-0 shadow-sm text-center p-4 h-100 hover-lift" style="border-radius: 8px;">
+                                <div class="bg-primary rounded-circle d-inline-flex mx-auto mb-3 justify-content-center align-items-center text-white"
+                                    style="width: 50px; height: 50px;">
+                                    <i class="fas fa-plus"></i>
+                                </div>
+                                <span class="fw-bold text-dark" style="font-size: 0.9rem;">Tambah MSDS</span>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-2 col-sm-6">
+                        <a href="{{ route('coa.create') }}" class="text-decoration-none">
+                            <div class="card border-0 shadow-sm text-center p-4 h-100 hover-lift" style="border-radius: 8px;">
+                                <div class="bg-primary rounded-circle d-inline-flex mx-auto mb-3 justify-content-center align-items-center text-white"
+                                    style="width: 50px; height: 50px;">
+                                    <i class="fas fa-plus"></i>
+                                </div>
+                                <span class="fw-bold text-dark" style="font-size: 0.9rem;">Tambah COA</span>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-2 col-sm-6">
+                        <a href="{{ route('users.create') }}" class="text-decoration-none"
+                            style="pointer-events: none; opacity: 0.6;">
+                            <div class="card border-0 shadow-sm text-center p-4 h-100 hover-lift" style="border-radius: 8px;">
+                                <div class="bg-secondary rounded-circle d-inline-flex mx-auto mb-3 justify-content-center align-items-center text-white"
+                                    style="width: 50px; height: 50px;">
+                                    <i class="fas fa-user-plus"></i>
+                                </div>
+                                <span class="fw-bold text-dark" style="font-size: 0.9rem;">Tambah User</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        @endif
+    </div>
+
     <style>
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 25px;
+        .hover-lift {
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.2s;
         }
 
-        .stat-card {
-            background-color: var(--primary-blue);
-            border-radius: 6px;
-            overflow: hidden;
-            color: white;
-            transition: transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            display: flex;
-            flex-direction: column;
-        }
-
-        .stat-card:hover {
+        .hover-lift:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
-        }
-
-        .stat-header {
-            padding: 40px 25px;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            position: relative;
-        }
-
-        .stat-icon {
-            font-size: 2.5rem;
-            opacity: 0.9;
-        }
-
-        .stat-main {
-            text-align: right;
-        }
-
-        .stat-count {
-            font-size: 3rem;
-            font-weight: 400;
-            line-height: 1;
-            margin-bottom: 5px;
-        }
-
-        .stat-label {
-            font-size: 0.9rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .stat-footer {
-            background-color: white;
-            padding: 12px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            color: var(--primary-blue);
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 500;
-            border-top: 1px solid #efefef;
-        }
-
-        .stat-footer:hover {
-            background-color: #f0f0f0;
-        }
-
-        .stat-footer i {
-            font-size: 0.9rem;
-        }
-
-        /* Reference Colors */
-        .card-wi {
-            background-color: #337ab7;
-        }
-
-        .card-std {
-            background-color: #337ab7;
-        }
-
-        .card-msds {
-            background-color: #337ab7;
-        }
-
-        .card-coa {
-            background-color: #337ab7;
-        }
-
-        @media (max-width: 900px) {
-            .dashboard-grid {
-                grid-template-columns: 1fr;
-            }
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08) !important;
         }
     </style>
-@endsection
-
-@section('content')
-    <h1 class="page-title">PT. ELASTOMIX INDOESIA - INFORMASI DOKUMEN</h1>
-
-    <div class="dashboard-grid">
-        <!-- Work Instructions Card -->
-        <a href="{{ route('wi.index') }}" class="stat-card card-wi" style="text-decoration: none;">
-            <div class="stat-header">
-                <div class="stat-icon">
-                    <i class="fas fa-check-circle"></i>
-                </div>
-                <div class="stat-main">
-                    <div class="stat-count">{{ $counts['wi'] }}</div>
-                    <div class="stat-label">Work Instructions</div>
-                </div>
-            </div>
-            <div class="stat-footer">
-                Lihat Data
-                <i class="fas fa-arrow-circle-right"></i>
-            </div>
-        </a>
-
-        <!-- Support Document Card -->
-        <a href="{{ route('std.index') }}" class="stat-card card-std" style="text-decoration: none;">
-            <div class="stat-header">
-                <div class="stat-icon">
-                    <i class="fas fa-check-circle"></i>
-                </div>
-                <div class="stat-main">
-                    <div class="stat-count">{{ $counts['std'] }}</div>
-                    <div class="stat-label">Support Document</div>
-                </div>
-            </div>
-            <div class="stat-footer">
-                Lihat Data
-                <i class="fas fa-arrow-circle-right"></i>
-            </div>
-        </a>
-
-        <!-- MSDS Card -->
-        <a href="{{ route('msds.index') }}" class="stat-card card-msds" style="text-decoration: none;">
-            <div class="stat-header">
-                <div class="stat-icon">
-                    <i class="fas fa-check-circle"></i>
-                </div>
-                <div class="stat-main">
-                    <div class="stat-count">{{ $counts['msds'] }}</div>
-                    <div class="stat-label">MSDS</div>
-                </div>
-            </div>
-            <div class="stat-footer">
-                Lihat Data
-                <i class="fas fa-arrow-circle-right"></i>
-            </div>
-        </a>
-
-        <!-- COA Card -->
-        <a href="{{ route('coa.index') }}" class="stat-card card-coa" style="text-decoration: none;">
-            <div class="stat-header">
-                <div class="stat-icon">
-                    <i class="fas fa-check-circle"></i>
-                </div>
-                <div class="stat-main">
-                    <div class="stat-count">{{ $counts['coa'] }}</div>
-                    <div class="stat-label">Certificate of Analysis (COA)</div>
-                </div>
-            </div>
-            <div class="stat-footer">
-                Lihat Data
-                <i class="fas fa-arrow-circle-right"></i>
-            </div>
-        </a>
-    </div>
 @endsection

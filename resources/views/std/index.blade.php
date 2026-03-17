@@ -160,119 +160,124 @@
 @endsection
 
 @section('content')
-    <div class="card">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-            <h2 style="font-size: 1.25rem; color: #333;">Daftar Support Documents (STD)</h2>
-            @if(Auth::user()->role === 'admin')
-                <a href="{{ route('std.create') }}" class="btn-add">
-                    <i class="fas fa-plus"></i> Tambah Data
-                </a>
-            @endif
-        </div>
-
-        @if (session('success'))
-            <div style="background-color: #d1fae5; color: #065f46; padding: 15px; border-radius: 6px; margin-bottom: 20px;">
-                {{ session('success') }}
-            </div>
+<div class="card">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+        <h2 style="font-size: 1.25rem; color: #333;">Daftar Support Documents (STD)</h2>
+        @if(Auth::user()->role === 'admin')
+            <a href="{{ route('std.create') }}" class="btn-add">
+                <i class="fas fa-plus"></i> Tambah Data
+            </a>
         @endif
+    </div>
 
-        <div class="table-container">
-            <table id="stdTable">
-                <thead>
+    @if (session('success'))
+        <div style="background-color: #d1fae5; color: #065f46; padding: 15px; border-radius: 6px; margin-bottom: 20px;">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    <div class="table-container">
+        <table id="stdTable">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Nomor STD</th>
+                    <th>Nama STD</th>
+                    <th>Departemen</th>
+                    <th>Tahun</th>
+                    <th>keterangan</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($stds as $std)
                     <tr>
-                        <th>No</th>
-                        <th>Nomor STD</th>
-                        <th>Nama STD</th>
-                        <th>Departemen</th>
-                        <th>Tahun</th>
-                        <th>keterangan</th>
-                        <th>Aksi</th>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $std->nomer_std }}</td>
+                        <td>{{ $std->nama_std }}</td>
+                        <td>{{ $std->departemen->nama_departemen ?? '-' }}</td>
+                        <td>{{ $std->tahun }}</td>
+                        <td>
+                            {{ $std->keterangan }}
+                        </td>
+                        <td>
+                            <div style="display: flex;">
+
+
+                                @if(Auth::user()->role === 'admin')
+                                    <form action="{{ route('std.destroy', $std->id) }}" method="POST"
+                                        onsubmit="return confirm('Yakin?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn-action btn-delete" title="Hapus"><i
+                                                class="fas fa-trash"></i></button>
+                                    </form>
+                                    <a href="{{ route('std.edit', $std->id) }}" class="btn-action btn-edit" title="Edit"><i
+                                            class="fas fa-edit"></i></a>
+
+                                @endif
+                                <a href="{{ route('std.show', $std->id) }}" class="btn-action btn-view" title="Detail"><i
+                                        class="fas fa-eye"></i></a>
+
+                                @if($std->file)
+                                    <button type="button" class="btn-action btn-pdf" title="Lihat PDF"
+                                        onclick="viewPDF('{{ asset('public/storage/' . $std->file) }}', '{{ $std->nama_std }}')">
+                                        <i class="fas fa-file-pdf"></i>
+                                    </button>
+                                @endif
+
+                                @if($std->video && $std->video !== '-')
+                                    <button type="button" class="btn-action btn-video" title="Lihat Video"
+                                        onclick="viewVideo('{{ asset('public/storage/' . $std->video) }}', '{{ $std->nama_std }}')">
+                                        <i class="fas fa-video"></i>
+                                    </button>
+                                @endif
+                            </div>
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                    @foreach($stds as $std)
-                        <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $std->nomer_std }}</td>
-                            <td>{{ $std->nama_std }}</td>
-                            <td>{{ $std->departemen->nama_departemen ?? '-' }}</td>
-                            <td>{{ $std->tahun }}</td>
-                            <td>
-                                {{ $std->keterangan }}
-                            </td>
-                            <td>
-                                <div style="display: flex;">
-
-
-                                    @if(Auth::user()->role === 'admin')
-                                        <form action="{{ route('std.destroy', $std->id) }}" method="POST"
-                                            onsubmit="return confirm('Yakin?')">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn-action btn-delete" title="Hapus"><i
-                                                    class="fas fa-trash"></i></button>
-                                        </form>
-                                        <a href="{{ route('std.edit', $std->id) }}" class="btn-action btn-edit" title="Edit"><i
-                                                class="fas fa-edit"></i></a>
-
-                                    @endif
-                                    <a href="{{ route('std.show', $std->id) }}" class="btn-action btn-view" title="Detail"><i
-                                            class="fas fa-eye"></i></a>
-
-                                    @if($std->file)
-                                        <button type="button" class="btn-action btn-pdf" title="Lihat PDF"
-                                            onclick="viewPDF('{{ asset('public/storage/' . $std->file) }}', '{{ $std->nama_std }}')">
-                                            <i class="fas fa-file-pdf"></i>
-                                        </button>
-                                    @endif
-
-                                    @if($std->video && $std->video !== '-')
-                                        <button type="button" class="btn-action btn-video" title="Lihat Video"
-                                            onclick="viewVideo('{{ asset('public/storage/' . $std->video) }}', '{{ $std->nama_std }}')">
-                                            <i class="fas fa-video"></i>
-                                        </button>
-                                    @endif
-                                </div>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-
+                @endforeach
+            </tbody>
+        </table>
     </div>
 
-    <!-- Modal PDF -->
-    <div id="pdfModal" class="modal-overlay">
-        <div class="modal-container">
-            <div class="modal-header" style="display: block; border-bottom: none; padding: 10px 0;">
-                <h4 style="margin: 0; font-weight: bold; color: #000; font-size: 1.1rem;">DETAIL SUPPORT DOCUMENT</h4>
-                <h4 id="pdfTitle" style="margin: 5px 0; font-weight: bold; color: #000; font-size: 1.1rem;">NAMA STD : </h4>
-                <a href="javascript:void(0)" onclick="closeModal('pdfModal')" style="color: #000080; text-decoration: none; font-size: 0.9rem; font-weight: 500;">Close</a>
-            </div>
-            <div class="modal-body">
-                <iframe id="pdfViewer" src="" type="application/pdf"></iframe>
-            </div>
+</div>
+
+<!-- Modal PDF -->
+<div id="pdfModal" class="modal-overlay">
+    <div class="modal-container">
+        <div class="modal-header" style="display: block; border-bottom: none; padding: 10px 0;">
+            <h4 style="margin: 0; font-weight: bold; color: #000; font-size: 1.1rem;">DETAIL SUPPORT DOCUMENT</h4>
+            <h4 id="pdfTitle" style="margin: 5px 0; font-weight: bold; color: #000; font-size: 1.1rem;">NAMA STD : </h4>
+            <a href="javascript:void(0)" onclick="closeModal('pdfModal')"
+                style="color: #000080; text-decoration: none; font-size: 0.9rem; font-weight: 500;">Close</a>
+        </div>
+        <div class="modal-body">
+            <iframe id="pdfViewer" src="" type="application/pdf"></iframe>
         </div>
     </div>
+</div>
 
-    <!-- Modal Video -->
-    <div id="videoModal" class="modal-overlay">
-        <div class="modal-container">
-            <div class="modal-header" style="display: block; border-bottom: none; padding: 10px 0;">
-                <h4 style="margin: 0; font-weight: bold; color: #000; font-size: 1.1rem;">DETAIL SUPPORT DOCUMENT</h4>
-                <h4 id="videoTitle" style="margin: 5px 0; font-weight: bold; color: #000; font-size: 1.1rem;">NAMA STD : </h4>
-                <a href="javascript:void(0)" onclick="closeModal('videoModal')" style="color: #000080; text-decoration: none; font-size: 0.9rem; font-weight: 500;">Close</a>
-            </div>
-            <div class="modal-body">
-                <video id="videoPlayer" controls style="width: 100%; height: 100%;">
-                    <source id="videoSource" src="" type="video/mp4">
-                    Browser Anda tidak mendukung tag video.
-                </video>
-            </div>
+<!-- Modal Video -->
+<div id="videoModal" class="modal-overlay">
+    <div class="modal-container">
+        <div class="modal-header" style="display: block; border-bottom: none; padding: 10px 0;">
+            <h4 style="margin: 0; font-weight: bold; color: #000; font-size: 1.1rem;">DETAIL SUPPORT DOCUMENT</h4>
+            <h4 id="videoTitle" style="margin: 5px 0; font-weight: bold; color: #000; font-size: 1.1rem;">NAMA STD :
+            </h4>
+            <a href="javascript:void(0)" onclick="closeModal('videoModal')"
+                style="color: #000080; text-decoration: none; font-size: 0.9rem; font-weight: 500;">Close</a>
+        </div>
+        <div class="modal-body">
+            <video id="videoPlayer" controls style="width: 100%; height: 100%;">
+                <source id="videoSource" src="" type="video/mp4">
+                Browser Anda tidak mendukung tag video.
+            </video>
         </div>
     </div>
+</div>
+@endsection
 
+@section('scripts')
     <script>
         $(document).ready(function () {
             $('#stdTable').DataTable({

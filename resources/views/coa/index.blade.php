@@ -185,7 +185,7 @@
                         <th>Nama COA</th>
                         <th>Departemen</th>
                         <th>Tahun</th>
-                        <th>Status</th>
+                        <th>Keterangan</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -198,9 +198,7 @@
                             <td>{{ $coa->departemen->nama_departemen ?? '-' }}</td>
                             <td>{{ $coa->tahun }}</td>
                             <td>
-                                <span class="badge {{ $coa->active == '1' ? 'badge-active' : 'badge-inactive' }}">
-                                    {{ $coa->active == '1' ? 'Active' : 'Inactive' }}
-                                </span>
+                                {{ $coa->keterangan }}
                             </td>
                             <td>
                                 <div style="display: flex;">
@@ -272,7 +270,9 @@
             </div>
         </div>
     </div>
+@endsection
 
+@section('scripts')
     <script>
         $(document).ready(function () {
             $('#coaTable').DataTable({

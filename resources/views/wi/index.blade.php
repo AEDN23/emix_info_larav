@@ -210,7 +210,7 @@
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn-action btn-delete" title="Hapus"><i
-                                                    class="fas fa-trash"></i></button>
+                                                    class="fas fa-trash text"></i></button>
 
                                         </form>
                                         <a href="{{ route('wi.edit', $wi->id) }}" class="btn-action btn-edit" title="Edit"><i
@@ -249,7 +249,8 @@
             <div class="modal-header" style="display: block; border-bottom: none; padding: 10px 0;">
                 <h4 style="margin: 0; font-weight: bold; color: #000; font-size: 1.1rem;">DETAIL WORK INSTRUCTION</h4>
                 <h4 id="pdfTitle" style="margin: 5px 0; font-weight: bold; color: #000; font-size: 1.1rem;">NAMA WI : </h4>
-                <a href="javascript:void(0)" onclick="closeModal('pdfModal')" style="color: #000080; text-decoration: none; font-size: 0.9rem; font-weight: 500;">Close</a>
+                <a href="javascript:void(0)" onclick="closeModal('pdfModal')"
+                    style="color: #000080; text-decoration: none; font-size: 0.9rem; font-weight: 500;">Close</a>
             </div>
             <div class="modal-body">
                 <iframe id="pdfViewer" src="" type="application/pdf"></iframe>
@@ -262,8 +263,10 @@
         <div class="modal-container">
             <div class="modal-header" style="display: block; border-bottom: none; padding: 10px 0;">
                 <h4 style="margin: 0; font-weight: bold; color: #000; font-size: 1.1rem;">DETAIL WORK INSTRUCTION</h4>
-                <h4 id="videoTitle" style="margin: 5px 0; font-weight: bold; color: #000; font-size: 1.1rem;">NAMA WI : </h4>
-                <a href="javascript:void(0)" onclick="closeModal('videoModal')" style="color: #000080; text-decoration: none; font-size: 0.9rem; font-weight: 500;">Close</a>
+                <h4 id="videoTitle" style="margin: 5px 0; font-weight: bold; color: #000; font-size: 1.1rem;">NAMA WI :
+                </h4>
+                <a href="javascript:void(0)" onclick="closeModal('videoModal')"
+                    style="color: #000080; text-decoration: none; font-size: 0.9rem; font-weight: 500;">Close</a>
             </div>
             <div class="modal-body">
                 <video id="videoPlayer" controls style="width: 100%; height: 100%;">
@@ -273,7 +276,9 @@
             </div>
         </div>
     </div>
+@endsection
 
+@section('scripts')
     <script>
         $(document).ready(function () {
             $('#wiTable').DataTable({
