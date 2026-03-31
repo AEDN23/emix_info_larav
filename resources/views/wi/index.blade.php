@@ -74,7 +74,7 @@
         }
 
         .btn-add {
-            background-color: var(--primary-blue);
+            background-color: var(--primary);
             color: white;
             padding: 10px 20px;
             border-radius: 6px;
@@ -110,19 +110,20 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.7);
+            background: white;
             display: none;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start;
             z-index: 1000;
+            overflow-y: auto;
         }
 
         .modal-container {
             background: white;
-            padding: 20px;
-            border-radius: 8px;
-            width: 95%;
-            height: 95%;
+            padding: 0;
+            border-radius: 0;
+            width: 100%;
+            min-height: 100vh;
             position: relative;
             display: flex;
             flex-direction: column;
@@ -144,8 +145,8 @@
         }
 
         .modal-body {
-            flex-grow: 1;
             width: 100%;
+            height: 100vh;
             overflow: hidden;
             background: #fdfdfd;
         }
@@ -246,7 +247,7 @@
     <!-- Modal PDF -->
     <div id="pdfModal" class="modal-overlay">
         <div class="modal-container">
-            <div class="modal-header" style="display: block; border-bottom: none; padding: 10px 0;">
+            <div class="modal-header" style="display: block; border-bottom: 2px solid #eee; padding: 15px 25px; background: #fff;">
                 <h4 style="margin: 0; font-weight: bold; color: #000; font-size: 1.1rem;">DETAIL WORK INSTRUCTION</h4>
                 <h4 id="pdfTitle" style="margin: 5px 0; font-weight: bold; color: #000; font-size: 1.1rem;">NAMA WI : </h4>
                 <a href="javascript:void(0)" onclick="closeModal('pdfModal')"
@@ -261,7 +262,7 @@
     <!-- Modal Video -->
     <div id="videoModal" class="modal-overlay">
         <div class="modal-container">
-            <div class="modal-header" style="display: block; border-bottom: none; padding: 10px 0;">
+            <div class="modal-header" style="display: block; border-bottom: 2px solid #eee; padding: 15px 25px; background: #fff;">
                 <h4 style="margin: 0; font-weight: bold; color: #000; font-size: 1.1rem;">DETAIL WORK INSTRUCTION</h4>
                 <h4 id="videoTitle" style="margin: 5px 0; font-weight: bold; color: #000; font-size: 1.1rem;">NAMA WI :
                 </h4>

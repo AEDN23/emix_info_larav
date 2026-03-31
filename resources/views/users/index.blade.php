@@ -59,7 +59,7 @@
         }
 
         .btn-add {
-            background-color: var(--primary-blue);
+            background-color: var(--primary);
             color: white;
             padding: 10px 20px;
             border-radius: 6px;

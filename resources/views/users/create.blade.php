@@ -36,7 +36,7 @@
         }
 
         .btn-submit {
-            background-color: var(--primary-blue);
+            background-color: var(--primary);
             color: white;
             border: none;
             padding: 12px 25px;
