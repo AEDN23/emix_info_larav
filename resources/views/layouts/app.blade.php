@@ -331,12 +331,14 @@
                 <i class="fas fa-file-signature"></i> Certificate of Analysis
             </a>
 
-            @if(Auth::user()->role === 'admin')
-                <div class="menu-header">ADMINISTRASI</div>
-                <a href="{{ route('users.index') }}" class="nav-link {{ request()->routeIs('users.*') ? 'active' : '' }}">
-                    <i class="fas fa-users-cog"></i> Kelola User
-                </a>
-            @endif
+            @auth
+                @if(Auth::user()->role === 'admin')
+                    <div class="menu-header">ADMINISTRASI</div>
+                    <a href="{{ route('users.index') }}" class="nav-link {{ request()->routeIs('users.*') ? 'active' : '' }}">
+                        <i class="fas fa-users-cog"></i> Kelola User
+                    </a>
+                @endif
+            @endauth
         </div>
     </aside>
 
@@ -353,26 +355,32 @@
                             class="ms-1"></span></span>
                 </div>
 
-                <div class="user-dropdown" id="userMenuBtn">
-                    <div class="user-info text-end d-none d-sm-block">
-                        <span class="name">{{ Auth::user()->name }}</span>
-                        <span class="role">{{ ucfirst(Auth::user()->role) }}</span>
-                    </div>
-                    <div class="user-avatar">
-                        {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
-                    </div>
-                    <i class="fas fa-chevron-down ms-1" style="font-size: 0.75rem; color: #6b7280;"></i>
+                @auth
+                    <div class="user-dropdown" id="userMenuBtn">
+                        <div class="user-info text-end d-none d-sm-block">
+                            <span class="name">{{ Auth::user()->name }}</span>
+                            <span class="role">{{ ucfirst(Auth::user()->role) }}</span>
+                        </div>
+                        <div class="user-avatar">
+                            {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
+                        </div>
+                        <i class="fas fa-chevron-down ms-1" style="font-size: 0.75rem; color: #6b7280;"></i>
 
-                    <!-- Dropdown Menu -->
-                    <div class="dropdown-menu-custom" id="userDropdown">
-                        <form action="{{ route('logout') }}" method="POST">
-                            @csrf
-                            <button type="submit" class="dropdown-item-custom text-danger">
-                                <i class="fas fa-sign-out-alt"></i> Logout
-                            </button>
-                        </form>
+                        <!-- Dropdown Menu -->
+                        <div class="dropdown-menu-custom" id="userDropdown">
+                            <form action="{{ route('logout') }}" method="POST">
+                                @csrf
+                                <button type="submit" class="dropdown-item-custom text-danger">
+                                    <i class="fas fa-sign-out-alt"></i> Logout
+                                </button>
+                            </form>
+                        </div>
                     </div>
-                </div>
+                @else
+                    <a href="{{ route('login') }}" class="btn btn-primary btn-sm px-4 rounded-pill">
+                        <i class="fas fa-sign-in-alt me-1"></i> Login
+                    </a>
+                @endauth
             </div>
         </header>
 
@@ -423,16 +431,18 @@
         const userMenuBtn = document.getElementById('userMenuBtn');
         const userDropdown = document.getElementById('userDropdown');
 
-        userMenuBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            userDropdown.classList.toggle('show');
-        });
+        if (userMenuBtn) {
+            userMenuBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                userDropdown.classList.toggle('show');
+            });
 
-        document.addEventListener('click', (e) => {
-            if (!userMenuBtn.contains(e.target)) {
-                userDropdown.classList.remove('show');
-            }
-        });
+            document.addEventListener('click', (e) => {
+                if (!userMenuBtn.contains(e.target)) {
+                    userDropdown.classList.remove('show');
+                }
+            });
+        }
 
         // Real-time Clock
         function updateClock() {

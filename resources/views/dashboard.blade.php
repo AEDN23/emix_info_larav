@@ -107,69 +107,71 @@
         </div>
 
         <!-- Quick Actions (Admin Only) -->
-        @if(Auth::user()->role === 'admin')
-            <div class="col-12 mt-5">
-                <h5 class="fw-bold mb-3 text-center text-dark" style="font-size: 1.1rem;">Akses Cepat Admin</h5>
-                <div class="row g-3 justify-content-center">
-                    <div class="col-md-2 col-sm-6">
-                        <a href="{{ route('wi.create') }}" class="text-decoration-none">
-                            <div class="card border-0 shadow-sm text-center p-4 h-100 hover-lift" style="border-radius: 8px;">
-                                <div class="bg-primary rounded-circle d-inline-flex mx-auto mb-3 justify-content-center align-items-center text-white"
-                                    style="width: 50px; height: 50px;">
-                                    <i class="fas fa-plus"></i>
+        @auth
+            @if(Auth::user()->role === 'admin')
+                <div class="col-12 mt-5">
+                    <h5 class="fw-bold mb-3 text-center text-dark" style="font-size: 1.1rem;">Akses Cepat Admin</h5>
+                    <div class="row g-3 justify-content-center">
+                        <div class="col-md-2 col-sm-6">
+                            <a href="{{ route('wi.create') }}" class="text-decoration-none">
+                                <div class="card border-0 shadow-sm text-center p-4 h-100 hover-lift" style="border-radius: 8px;">
+                                    <div class="bg-primary rounded-circle d-inline-flex mx-auto mb-3 justify-content-center align-items-center text-white"
+                                        style="width: 50px; height: 50px;">
+                                        <i class="fas fa-plus"></i>
+                                    </div>
+                                    <span class="fw-bold text-dark" style="font-size: 0.9rem;">Tambah WI</span>
                                 </div>
-                                <span class="fw-bold text-dark" style="font-size: 0.9rem;">Tambah WI</span>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-2 col-sm-6">
-                        <a href="{{ route('std.create') }}" class="text-decoration-none">
-                            <div class="card border-0 shadow-sm text-center p-4 h-100 hover-lift" style="border-radius: 8px;">
-                                <div class="bg-primary rounded-circle d-inline-flex mx-auto mb-3 justify-content-center align-items-center text-white"
-                                    style="width: 50px; height: 50px;">
-                                    <i class="fas fa-plus"></i>
+                            </a>
+                        </div>
+                        <div class="col-md-2 col-sm-6">
+                            <a href="{{ route('std.create') }}" class="text-decoration-none">
+                                <div class="card border-0 shadow-sm text-center p-4 h-100 hover-lift" style="border-radius: 8px;">
+                                    <div class="bg-primary rounded-circle d-inline-flex mx-auto mb-3 justify-content-center align-items-center text-white"
+                                        style="width: 50px; height: 50px;">
+                                        <i class="fas fa-plus"></i>
+                                    </div>
+                                    <span class="fw-bold text-dark" style="font-size: 0.9rem;">Tambah STD</span>
                                 </div>
-                                <span class="fw-bold text-dark" style="font-size: 0.9rem;">Tambah STD</span>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-2 col-sm-6">
-                        <a href="{{ route('msds.create') }}" class="text-decoration-none">
-                            <div class="card border-0 shadow-sm text-center p-4 h-100 hover-lift" style="border-radius: 8px;">
-                                <div class="bg-primary rounded-circle d-inline-flex mx-auto mb-3 justify-content-center align-items-center text-white"
-                                    style="width: 50px; height: 50px;">
-                                    <i class="fas fa-plus"></i>
+                            </a>
+                        </div>
+                        <div class="col-md-2 col-sm-6">
+                            <a href="{{ route('msds.create') }}" class="text-decoration-none">
+                                <div class="card border-0 shadow-sm text-center p-4 h-100 hover-lift" style="border-radius: 8px;">
+                                    <div class="bg-primary rounded-circle d-inline-flex mx-auto mb-3 justify-content-center align-items-center text-white"
+                                        style="width: 50px; height: 50px;">
+                                        <i class="fas fa-plus"></i>
+                                    </div>
+                                    <span class="fw-bold text-dark" style="font-size: 0.9rem;">Tambah MSDS</span>
                                 </div>
-                                <span class="fw-bold text-dark" style="font-size: 0.9rem;">Tambah MSDS</span>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-2 col-sm-6">
-                        <a href="{{ route('coa.create') }}" class="text-decoration-none">
-                            <div class="card border-0 shadow-sm text-center p-4 h-100 hover-lift" style="border-radius: 8px;">
-                                <div class="bg-primary rounded-circle d-inline-flex mx-auto mb-3 justify-content-center align-items-center text-white"
-                                    style="width: 50px; height: 50px;">
-                                    <i class="fas fa-plus"></i>
+                            </a>
+                        </div>
+                        <div class="col-md-2 col-sm-6">
+                            <a href="{{ route('coa.create') }}" class="text-decoration-none">
+                                <div class="card border-0 shadow-sm text-center p-4 h-100 hover-lift" style="border-radius: 8px;">
+                                    <div class="bg-primary rounded-circle d-inline-flex mx-auto mb-3 justify-content-center align-items-center text-white"
+                                        style="width: 50px; height: 50px;">
+                                        <i class="fas fa-plus"></i>
+                                    </div>
+                                    <span class="fw-bold text-dark" style="font-size: 0.9rem;">Tambah COA</span>
                                 </div>
-                                <span class="fw-bold text-dark" style="font-size: 0.9rem;">Tambah COA</span>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-2 col-sm-6">
-                        <a href="{{ route('users.create') }}" class="text-decoration-none"
-                            style="pointer-events: none; opacity: 0.6;">
-                            <div class="card border-0 shadow-sm text-center p-4 h-100 hover-lift" style="border-radius: 8px;">
-                                <div class="bg-secondary rounded-circle d-inline-flex mx-auto mb-3 justify-content-center align-items-center text-white"
-                                    style="width: 50px; height: 50px;">
-                                    <i class="fas fa-user-plus"></i>
+                            </a>
+                        </div>
+                        <div class="col-md-2 col-sm-6">
+                            <a href="{{ route('users.create') }}" class="text-decoration-none"
+                                style="pointer-events: none; opacity: 0.6;">
+                                <div class="card border-0 shadow-sm text-center p-4 h-100 hover-lift" style="border-radius: 8px;">
+                                    <div class="bg-secondary rounded-circle d-inline-flex mx-auto mb-3 justify-content-center align-items-center text-white"
+                                        style="width: 50px; height: 50px;">
+                                        <i class="fas fa-user-plus"></i>
+                                    </div>
+                                    <span class="fw-bold text-dark" style="font-size: 0.9rem;">Tambah User</span>
                                 </div>
-                                <span class="fw-bold text-dark" style="font-size: 0.9rem;">Tambah User</span>
-                            </div>
-                        </a>
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
-        @endif
+            @endif
+        @endauth
     </div>
 
     <style>

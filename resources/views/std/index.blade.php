@@ -114,11 +114,13 @@
     <div class="card">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
             <h2 style="font-size: 1.25rem; color: #333;">Daftar Support Documents (STD)</h2>
-            @if(Auth::user()->role === 'admin')
-                <a href="{{ route('std.create') }}" class="btn-add">
-                    <i class="fas fa-plus"></i> Tambah Data
-                </a>
-            @endif
+            @auth
+                @if(Auth::user()->role === 'admin')
+                    <a href="{{ route('std.create') }}" class="btn-add">
+                        <i class="fas fa-plus"></i> Tambah Data
+                    </a>
+                @endif
+            @endauth
         </div>
 
         @if (session('success'))
@@ -155,18 +157,20 @@
                                 <div style="display: flex;">
 
 
-                                    @if(Auth::user()->role === 'admin')
-                                        <form action="{{ route('std.destroy', $std->id) }}" method="POST"
-                                            onsubmit="return confirm('Yakin?')">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn-action btn-delete" title="Hapus"><i
-                                                    class="fas fa-trash"></i></button>
-                                        </form>
-                                        <a href="{{ route('std.edit', $std->id) }}" class="btn-action btn-edit" title="Edit"><i
-                                                class="fas fa-edit"></i></a>
+                                    @auth
+                                        @if(Auth::user()->role === 'admin')
+                                            <form action="{{ route('std.destroy', $std->id) }}" method="POST"
+                                                onsubmit="return confirm('Yakin?')">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn-action btn-delete" title="Hapus"><i
+                                                        class="fas fa-trash"></i></button>
+                                            </form>
+                                            <a href="{{ route('std.edit', $std->id) }}" class="btn-action btn-edit" title="Edit"><i
+                                                    class="fas fa-edit"></i></a>
 
-                                    @endif
+                                        @endif
+                                    @endauth
                                     <a href="{{ route('std.show', $std->id) }}" class="btn-action btn-view" title="Detail"><i
                                             class="fas fa-eye"></i></a>
 

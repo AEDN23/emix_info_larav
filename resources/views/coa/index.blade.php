@@ -114,11 +114,13 @@
     <div class="card">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
             <h2 style="font-size: 1.25rem; color: #333;">Daftar Certificate of Analysis (COA)</h2>
-           @if(Auth::user()->role === 'admin')
-                <a href="{{ route('coa.create') }}" class="btn-add">
-                    <i class="fas fa-plus"></i> Tambah Data
-                </a>
-            @endif
+            @auth
+                @if(Auth::user()->role === 'admin')
+                    <a href="{{ route('coa.create') }}" class="btn-add">
+                        <i class="fas fa-plus"></i> Tambah Data
+                    </a>
+                @endif
+            @endauth
         </div>
 
         @if (session('success'))
@@ -156,17 +158,19 @@
                                     <a href="{{ route('coa.show', $coa->id) }}" class="btn-action btn-view" title="Detail"><i
                                             class="fas fa-eye"></i></a>
 
-                                    @if(Auth::user()->role === 'admin' || Auth::user()->role === 'leader')
-                                        <a href="{{ route('coa.edit', $coa->id) }}" class="btn-action btn-edit" title="Edit"><i
-                                                class="fas fa-edit"></i></a>
-                                        <form action="{{ route('coa.destroy', $coa->id) }}" method="POST"
-                                            onsubmit="return confirm('Yakin?')">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn-action btn-delete" title="Hapus"><i
-                                                    class="fas fa-trash"></i></button>
-                                        </form>
-                                    @endif
+                                    @auth
+                                        @if(Auth::user()->role === 'admin' || Auth::user()->role === 'leader')
+                                            <a href="{{ route('coa.edit', $coa->id) }}" class="btn-action btn-edit" title="Edit"><i
+                                                    class="fas fa-edit"></i></a>
+                                            <form action="{{ route('coa.destroy', $coa->id) }}" method="POST"
+                                                onsubmit="return confirm('Yakin?')">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn-action btn-delete" title="Hapus"><i
+                                                        class="fas fa-trash"></i></button>
+                                            </form>
+                                        @endif
+                                    @endauth
 
                                     @if($coa->file)
                                         <button type="button" class="btn-action btn-pdf" title="Lihat PDF"

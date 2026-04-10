@@ -114,11 +114,13 @@
     <div class="card">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
             <h2 style="font-size: 1.25rem; color: #333;">Daftar Work Instructions (WI)</h2>
-            @if(Auth::user()->role === 'admin')
-                <a href="{{ route('wi.create') }}" class="btn-add">
-                    <i class="fas fa-plus"></i> Tambah Data
-                </a>
-            @endif
+            @auth
+                @if(Auth::user()->role === 'admin')
+                    <a href="{{ route('wi.create') }}" class="btn-add">
+                        <i class="fas fa-plus"></i> Tambah Data
+                    </a>
+                @endif
+            @endauth
         </div>
 
         @if (session('success'))
@@ -155,19 +157,20 @@
                                 <div style="display: flex;">
 
 
-                                    @if(Auth::user()->role === 'admin')
-                                        <form action="{{ route('wi.destroy', $wi->id) }}" method="POST"
-                                            onsubmit="return confirm('Yakin?')">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn-action btn-delete" title="Hapus"><i
-                                                    class="fas fa-trash text"></i></button>
+                                    @auth
+                                        @if(Auth::user()->role === 'admin')
+                                            <form action="{{ route('wi.destroy', $wi->id) }}" method="POST"
+                                                onsubmit="return confirm('Yakin?')">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn-action btn-delete" title="Hapus"><i
+                                                        class="fas fa-trash text"></i></button>
 
-                                        </form>
-                                        <a href="{{ route('wi.edit', $wi->id) }}" class="btn-action btn-edit" title="Edit"><i
-                                                class="fas fa-edit"></i></a>
-
-                                    @endif
+                                            </form>
+                                            <a href="{{ route('wi.edit', $wi->id) }}" class="btn-action btn-edit" title="Edit"><i
+                                                    class="fas fa-edit"></i></a>
+                                        @endif
+                                    @endauth
                                     <a href="{{ route('wi.show', $wi->id) }}" class="btn-action btn-view" title="Detail"><i
                                             class="fas fa-eye"></i></a>
 

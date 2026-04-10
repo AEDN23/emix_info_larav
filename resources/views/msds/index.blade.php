@@ -114,11 +114,13 @@
     <div class="card">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
             <h2 style="font-size: 1.25rem; color: #333;">Daftar MSDS (Safety Data Sheet)</h2>
-            @if(Auth::user()->role === 'admin' || Auth::user()->role === 'leader')
-                <a href="{{ route('msds.create') }}" class="btn-add">
-                    <i class="fas fa-plus"></i> Tambah Data
-                </a>
-            @endif
+            @auth
+                @if(Auth::user()->role === 'admin' || Auth::user()->role === 'leader')
+                    <a href="{{ route('msds.create') }}" class="btn-add">
+                        <i class="fas fa-plus"></i> Tambah Data
+                    </a>
+                @endif
+            @endauth
         </div>
 
         @if (session('success'))
@@ -154,18 +156,20 @@
                             <td>
                                 <div style="display: flex;">
 
-                                    @if(Auth::user()->role === 'admin')
-                                        <form action="{{ route('msds.destroy', $msds->id) }}" method="POST"
-                                            onsubmit="return confirm('Yakin?')">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn-action btn-delete" title="Hapus"><i
-                                                    class="fas fa-trash"></i></button>
-                                        </form>
-                                        <a href="{{ route('msds.edit', $msds->id) }}" class="btn-action btn-edit" title="Edit"><i
-                                                class="fas fa-edit"></i></a>
+                                    @auth
+                                        @if(Auth::user()->role === 'admin' || Auth::user()->role === 'leader')
+                                            <form action="{{ route('msds.destroy', $msds->id) }}" method="POST"
+                                                onsubmit="return confirm('Yakin?')">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn-action btn-delete" title="Hapus"><i
+                                                        class="fas fa-trash"></i></button>
+                                            </form>
+                                            <a href="{{ route('msds.edit', $msds->id) }}" class="btn-action btn-edit" title="Edit"><i
+                                                    class="fas fa-edit"></i></a>
 
-                                    @endif
+                                        @endif
+                                    @endauth
                                     <a href="{{ route('msds.show', $msds->id) }}" class="btn-action btn-view" title="Detail"><i
                                             class="fas fa-eye"></i></a>
 
@@ -198,10 +202,13 @@
             <div class="modal-content">
                 <div class="modal-header d-flex justify-content-between align-items-center" style="padding: 10px 20px;">
                     <div>
-                        <h5 class="mb-0" style="font-size: 14px; font-weight: bold; color: #2E3338;">NAMA MSDS <span style="margin: 0 10px;">:</span><span id="modalNama"></span></h5>
-                        <h5 class="mb-0" style="font-size: 14px; font-weight: bold; color: #2E3338; margin-top: 5px;">NOMOR MSDS <span style="margin: 0 10px;">:</span><span id="modalNomor"></span></h5>
+                        <h5 class="mb-0" style="font-size: 14px; font-weight: bold; color: #2E3338;">NAMA MSDS <span
+                                style="margin: 0 10px;">:</span><span id="modalNama"></span></h5>
+                        <h5 class="mb-0" style="font-size: 14px; font-weight: bold; color: #2E3338; margin-top: 5px;">NOMOR
+                            MSDS <span style="margin: 0 10px;">:</span><span id="modalNomor"></span></h5>
                     </div>
-                    <button type="button" class="btn text-success fw-bold p-0" data-bs-dismiss="modal" style="font-size: 14px; letter-spacing: 1px;">CLOSE</button>
+                    <button type="button" class="btn text-success fw-bold p-0" data-bs-dismiss="modal"
+                        style="font-size: 14px; letter-spacing: 1px;">CLOSE</button>
                 </div>
                 <div class="modal-body p-0" style="overflow: hidden; background-color: #525659;">
                     <iframe id="previewIframe" src="" frameborder="0" style="width: 100%; height: 100%;"></iframe>
@@ -216,10 +223,13 @@
             <div class="modal-content">
                 <div class="modal-header d-flex justify-content-between align-items-center" style="padding: 10px 20px;">
                     <div>
-                        <h5 class="mb-0" style="font-size: 14px; font-weight: bold; color: #2E3338;">NAMA MSDS <span style="margin: 0 10px;">:</span><span id="modalVideoNama"></span></h5>
-                        <h5 class="mb-0" style="font-size: 14px; font-weight: bold; color: #2E3338; margin-top: 5px;">NOMOR MSDS <span style="margin: 0 10px;">:</span><span id="modalVideoNomor"></span></h5>
+                        <h5 class="mb-0" style="font-size: 14px; font-weight: bold; color: #2E3338;">NAMA MSDS <span
+                                style="margin: 0 10px;">:</span><span id="modalVideoNama"></span></h5>
+                        <h5 class="mb-0" style="font-size: 14px; font-weight: bold; color: #2E3338; margin-top: 5px;">NOMOR
+                            MSDS <span style="margin: 0 10px;">:</span><span id="modalVideoNomor"></span></h5>
                     </div>
-                    <button type="button" class="btn text-success fw-bold p-0" data-bs-dismiss="modal" style="font-size: 14px; letter-spacing: 1px;">CLOSE</button>
+                    <button type="button" class="btn text-success fw-bold p-0" data-bs-dismiss="modal"
+                        style="font-size: 14px; letter-spacing: 1px;">CLOSE</button>
                 </div>
                 <div class="modal-body p-0" style="background-color: #000;">
                     <video id="videoPlayer" controls style="width: 100%; height: 100%;">
