@@ -103,59 +103,9 @@
             color: #991b1b;
         }
 
-        /* Modal Styles */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: white;
-            display: none;
-            justify-content: center;
-            align-items: flex-start;
-            z-index: 1000;
-            overflow-y: auto;
-        }
-
-        .modal-container {
-            background: white;
-            padding: 0;
-            border-radius: 0;
-            width: 100%;
-            min-height: 100vh;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-        }
-
+        /* Custom Modal Styles (If any additional needed, Bootstrap handles fullscreen) */
         .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .modal-close {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: #666;
-        }
-
-        .modal-body {
-            width: 100%;
-            height: 100vh;
-            overflow: hidden;
-            background: #fdfdfd;
-        }
-
-        #pdfViewer,
-        #videoPlayer {
-            width: 100%;
-            height: 100%;
-            border: none;
+            border-bottom: 2px solid #f0f0f0;
         }
     </style>
 @endsection
@@ -223,14 +173,14 @@
 
                                     @if($wi->file)
                                         <button type="button" class="btn-action btn-pdf" title="Lihat PDF"
-                                            onclick="viewPDF('{{ asset('public/storage/' . $wi->file) }}', '{{ $wi->nama_wi }}')">
+                                            onclick="showPreview('{{ $wi->nama_wi }}', '{{ $wi->nomer_wi }}', '{{ asset('public/storage/' . $wi->file) }}')">
                                             <i class="fas fa-file-pdf"></i>
                                         </button>
                                     @endif
 
                                     @if($wi->video && $wi->video !== '-')
                                         <button type="button" class="btn-action btn-video" title="Lihat Video"
-                                            onclick="viewVideo('{{ asset('public/storage/' . $wi->video) }}', '{{ $wi->nama_wi }}')">
+                                            onclick="showVideoPreview('{{ $wi->nama_wi }}', '{{ $wi->nomer_wi }}', '{{ asset('public/storage/' . $wi->video) }}')">
                                             <i class="fas fa-video"></i>
                                         </button>
                                     @endif
@@ -244,43 +194,53 @@
 
     </div>
 
-    <!-- Modal PDF -->
-    <div id="pdfModal" class="modal-overlay">
-        <div class="modal-container">
-            <div class="modal-header" style="display: block; border-bottom: 2px solid #eee; padding: 15px 25px; background: #fff;">
-                <h4 style="margin: 0; font-weight: bold; color: #000; font-size: 1.1rem;">DETAIL WORK INSTRUCTION</h4>
-                <h4 id="pdfTitle" style="margin: 5px 0; font-weight: bold; color: #000; font-size: 1.1rem;">NAMA WI : </h4>
-                <a href="javascript:void(0)" onclick="closeModal('pdfModal')"
-                    style="color: #000080; text-decoration: none; font-size: 0.9rem; font-weight: 500;">Close</a>
-            </div>
-            <div class="modal-body">
-                <iframe id="pdfViewer" src="" type="application/pdf"></iframe>
+    <!-- Fullscreen Preview Modal PDF -->
+    <div class="modal fade" id="previewModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content">
+                <div class="modal-header d-flex justify-content-between align-items-center" style="padding: 10px 20px;">
+                    <div>
+                        <h5 class="mb-0" style="font-size: 14px; font-weight: bold; color: #2E3338;">NAMA WI <span style="margin: 0 10px;">:</span><span id="modalNama"></span></h5>
+                        <h5 class="mb-0" style="font-size: 14px; font-weight: bold; color: #2E3338; margin-top: 5px;">NOMOR WI <span style="margin: 0 10px;">:</span><span id="modalNomor"></span></h5>
+                    </div>
+                    <button type="button" class="btn text-success fw-bold p-0" data-bs-dismiss="modal" style="font-size: 14px; letter-spacing: 1px;">CLOSE</button>
+                </div>
+                <div class="modal-body p-0" style="overflow: hidden; background-color: #525659;">
+                    <iframe id="previewIframe" src="" frameborder="0" style="width: 100%; height: 100%;"></iframe>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Modal Video -->
-    <div id="videoModal" class="modal-overlay">
-        <div class="modal-container">
-            <div class="modal-header" style="display: block; border-bottom: 2px solid #eee; padding: 15px 25px; background: #fff;">
-                <h4 style="margin: 0; font-weight: bold; color: #000; font-size: 1.1rem;">DETAIL WORK INSTRUCTION</h4>
-                <h4 id="videoTitle" style="margin: 5px 0; font-weight: bold; color: #000; font-size: 1.1rem;">NAMA WI :
-                </h4>
-                <a href="javascript:void(0)" onclick="closeModal('videoModal')"
-                    style="color: #000080; text-decoration: none; font-size: 0.9rem; font-weight: 500;">Close</a>
-            </div>
-            <div class="modal-body">
-                <video id="videoPlayer" controls style="width: 100%; height: 100%;">
-                    <source id="videoSource" src="" type="video/mp4">
-                    Browser Anda tidak mendukung tag video.
-                </video>
+    <!-- Fullscreen Preview Modal Video -->
+    <div class="modal fade" id="videoPreviewModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content">
+                <div class="modal-header d-flex justify-content-between align-items-center" style="padding: 10px 20px;">
+                    <div>
+                        <h5 class="mb-0" style="font-size: 14px; font-weight: bold; color: #2E3338;">NAMA WI <span style="margin: 0 10px;">:</span><span id="modalVideoNama"></span></h5>
+                        <h5 class="mb-0" style="font-size: 14px; font-weight: bold; color: #2E3338; margin-top: 5px;">NOMOR WI <span style="margin: 0 10px;">:</span><span id="modalVideoNomor"></span></h5>
+                    </div>
+                    <button type="button" class="btn text-success fw-bold p-0" data-bs-dismiss="modal" style="font-size: 14px; letter-spacing: 1px;">CLOSE</button>
+                </div>
+                <div class="modal-body p-0" style="background-color: #000;">
+                    <video id="videoPlayer" controls style="width: 100%; height: 100%;">
+                        <source id="videoSource" src="" type="video/mp4">
+                        Browser Anda tidak mendukung tag video.
+                    </video>
+                </div>
             </div>
         </div>
     </div>
 @endsection
 
 @section('scripts')
+    <script src="{{ asset('public/pdfjs/pdf.min.js') }}"></script>
     <script>
+        const pdfjsLoaded = window['pdfjs-dist/build/pdf'] || window.pdfjsLib;
+        if (pdfjsLoaded) {
+            pdfjsLoaded.GlobalWorkerOptions.workerSrc = '{{ asset("public/pdfjs/pdf.worker.min.js") }}';
+        }
         $(document).ready(function () {
             $('#wiTable').DataTable({
                 "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "Semua"]],
@@ -291,35 +251,32 @@
             });
         });
 
-        function viewPDF(url, title) {
-            document.getElementById('pdfTitle').innerText = 'NAMA WI : ' + title.toUpperCase();
-            document.getElementById('pdfViewer').src = url;
-            document.getElementById('pdfModal').style.display = 'flex';
+        function showPreview(nama, nomor, fileUrl) {
+            document.getElementById('modalNama').innerText = nama;
+            document.getElementById('modalNomor').innerText = nomor;
+            document.getElementById('previewIframe').src = fileUrl;
+            var modal = new bootstrap.Modal(document.getElementById('previewModal'));
+            modal.show();
         }
 
-        function viewVideo(url, title) {
-            document.getElementById('videoTitle').innerText = 'NAMA WI : ' + title.toUpperCase();
-            const player = document.getElementById('videoPlayer');
-            const source = document.getElementById('videoSource');
-            source.src = url;
+        function showVideoPreview(nama, nomor, fileUrl) {
+            document.getElementById('modalVideoNama').innerText = nama;
+            document.getElementById('modalVideoNomor').innerText = nomor;
+            var player = document.getElementById('videoPlayer');
+            document.getElementById('videoSource').src = fileUrl;
             player.load();
-            document.getElementById('videoModal').style.display = 'flex';
+            var modal = new bootstrap.Modal(document.getElementById('videoPreviewModal'));
+            modal.show();
         }
 
-        function closeModal(modalId) {
-            document.getElementById(modalId).style.display = 'none';
-            if (modalId === 'pdfModal') {
-                document.getElementById('pdfViewer').src = '';
-            } else if (modalId === 'videoModal') {
-                document.getElementById('videoPlayer').pause();
-            }
-        }
+        // Clean up iframe src when modal is hidden to stop any unwanted requests or audio
+        document.getElementById('previewModal').addEventListener('hidden.bs.modal', function () {
+            document.getElementById('previewIframe').src = '';
+        });
 
-        // Close on overlay click
-        window.onclick = function (event) {
-            if (event.target.classList.contains('modal-overlay')) {
-                closeModal(event.target.id);
-            }
-        }
+        // Pause video when modal is hidden
+        document.getElementById('videoPreviewModal').addEventListener('hidden.bs.modal', function () {
+            document.getElementById('videoPlayer').pause();
+        });
     </script>
 @endsection
