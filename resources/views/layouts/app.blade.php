@@ -32,7 +32,7 @@
             overflow-x: hidden;
         }
 
-        /* Sidebar styling */
+        /* ── Sidebar ───────────────────────────────────────── */
         #sidebar {
             width: 260px;
             height: 100vh;
@@ -40,13 +40,12 @@
             position: fixed;
             left: 0;
             top: 0;
-            z-index: 1000;
-            transition: all 0.3s;
+            z-index: 1050;
+            transition: transform 0.3s ease;
             display: flex;
             flex-direction: column;
         }
 
-        /* Brand area */
         .sidebar-brand {
             height: 70px;
             display: flex;
@@ -54,6 +53,7 @@
             padding: 0 24px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             text-decoration: none;
+            flex-shrink: 0;
         }
 
         .sidebar-brand .logo-icon {
@@ -66,6 +66,7 @@
             justify-content: center;
             margin-right: 12px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            flex-shrink: 0;
         }
 
         .sidebar-brand span {
@@ -75,14 +76,32 @@
             letter-spacing: 0.5px;
         }
 
-        /* Menu container */
+        /* Close button inside sidebar – hidden on desktop */
+        .sidebar-close-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: #9ca3af;
+            font-size: 1.2rem;
+            cursor: pointer;
+            margin-left: auto;
+            padding: 4px 8px;
+            border-radius: 6px;
+            transition: background 0.2s, color 0.2s;
+            line-height: 1;
+        }
+
+        .sidebar-close-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
         .sidebar-menu {
             padding: 24px 16px;
             overflow-y: auto;
             flex-grow: 1;
         }
 
-        /* Active link style */
         .sidebar-menu .nav-link {
             color: var(--text-sidebar);
             border-radius: 8px;
@@ -122,15 +141,31 @@
             margin: 24px 0 12px 16px;
         }
 
-        /* Main Layout */
+        /* ── Overlay (mobile) ──────────────────────────────── */
+        #sidebar-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1040;
+            backdrop-filter: blur(2px);
+        }
+
+        #sidebar-overlay.show {
+            display: block;
+            animation: fadeIn 0.2s ease;
+        }
+
+        /* ── Main Layout ───────────────────────────────────── */
         #main-content {
             margin-left: 260px;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            transition: margin-left 0.3s ease;
         }
 
-        /* Top Header */
+        /* ── Top Header ────────────────────────────────────── */
         .top-header {
             height: 70px;
             background: white;
@@ -142,6 +177,16 @@
             position: sticky;
             top: 0;
             z-index: 900;
+            gap: 12px;
+        }
+
+        /* Wrap hamburger + title */
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 0;
+            flex: 1;
         }
 
         .top-header .page-title {
@@ -149,12 +194,35 @@
             font-weight: 600;
             color: #111827;
             margin: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Hamburger – hidden on desktop */
+        .hamburger-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 8px;
+            color: #374151;
+            font-size: 1.2rem;
+            transition: background 0.2s;
+            flex-shrink: 0;
+            line-height: 1;
+        }
+
+        .hamburger-btn:hover {
+            background: #f3f4f6;
         }
 
         .header-actions {
             display: flex;
             align-items: center;
             gap: 20px;
+            flex-shrink: 0;
         }
 
         .datetime-display {
@@ -165,6 +233,7 @@
             gap: 8px;
             padding-right: 20px;
             border-right: 1px solid #e5e7eb;
+            white-space: nowrap;
         }
 
         .user-dropdown {
@@ -193,6 +262,7 @@
             justify-content: center;
             font-weight: 600;
             font-size: 1.1rem;
+            flex-shrink: 0;
         }
 
         .user-info {
@@ -223,7 +293,7 @@
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
             min-width: 200px;
             display: none;
-            z-index: 1000;
+            z-index: 1100;
             padding: 8px 0;
         }
 
@@ -233,15 +303,8 @@
         }
 
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(-10px); }
+            to   { opacity: 1; transform: translateY(0); }
         }
 
         .dropdown-item-custom {
@@ -279,29 +342,122 @@
             color: #dc2626;
         }
 
-        /* Content Area */
+        /* ── Content Area ──────────────────────────────────── */
         .content-area {
             padding: 32px;
             flex-grow: 1;
             background: #f9fafb;
         }
 
-        /* Card styles for general use */
         .card {
             box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
             border-radius: 8px;
             border: none;
         }
 
-        /* Animation utilities */
         .animate-fade-in {
             animation: fadeIn 0.4s ease-out;
+        }
+
+        /* ============================================================
+           RESPONSIVE — TABLET  ≤ 992px
+        ============================================================ */
+        @media (max-width: 992px) {
+            /* Sidebar hidden off-screen; toggled via JS */
+            #sidebar {
+                transform: translateX(-100%);
+            }
+
+            #sidebar.sidebar-open {
+                transform: translateX(0);
+            }
+
+            /* Show close button inside sidebar */
+            .sidebar-close-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            /* Main content takes full width */
+            #main-content {
+                margin-left: 0;
+            }
+
+            /* Show hamburger in header */
+            .hamburger-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+
+        /* ============================================================
+           RESPONSIVE — MOBILE  ≤ 576px
+        ============================================================ */
+        @media (max-width: 576px) {
+            .top-header {
+                padding: 0 14px;
+                height: 58px;
+            }
+
+            .top-header .page-title {
+                font-size: 1rem;
+            }
+
+            /* Hide date-time to save space */
+            .datetime-display {
+                display: none;
+            }
+
+            .header-actions {
+                gap: 6px;
+            }
+
+            .user-dropdown {
+                padding: 4px 6px;
+                gap: 6px;
+            }
+
+            .content-area {
+                padding: 14px;
+            }
+
+            /* Sidebar a bit wider on narrow phones for finger-friendliness */
+            #sidebar {
+                width: 280px;
+            }
+
+            /* Scrollable tables */
+            .dataTables_wrapper {
+                overflow-x: auto;
+            }
+
+            .alert {
+                font-size: 0.875rem;
+            }
+        }
+
+        /* ============================================================
+           RESPONSIVE — SMALL MOBILE  ≤ 400px
+        ============================================================ */
+        @media (max-width: 400px) {
+            .top-header .page-title {
+                font-size: 0.9rem;
+            }
+
+            .content-area {
+                padding: 10px;
+            }
         }
     </style>
     @yield('styles')
 </head>
 
 <body>
+    <!-- Sidebar overlay – closes sidebar when tapped (mobile) -->
+    <div id="sidebar-overlay"></div>
+
     <!-- Sidebar -->
     <aside id="sidebar">
         <a href="{{ route('dashboard') }}" class="sidebar-brand">
@@ -309,6 +465,9 @@
                 <i class="fas fa-chart-line text-white"></i>
             </div>
             <span>EMIX INFO</span>
+            <button class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Tutup Menu">
+                <i class="fas fa-times"></i>
+            </button>
         </a>
 
         <div class="sidebar-menu">
@@ -346,13 +505,20 @@
     <div id="main-content">
         <!-- Top Header -->
         <header class="top-header">
-            <h1 class="page-title">@yield('title', 'Beranda')</h1>
+            <div class="header-left">
+                <!-- Hamburger button – only visible on mobile/tablet -->
+                <button class="hamburger-btn" id="sidebarToggleBtn" aria-label="Buka Menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h1 class="page-title">@yield('title', 'Beranda')</h1>
+            </div>
 
             <div class="header-actions">
                 <div class="datetime-display">
                     <i class="far fa-calendar-alt"></i>
-                    <span id="currentDateTime">{{ now()->translatedFormat('l, d F Y') }} <span id="clock"
-                            class="ms-1"></span></span>
+                    <span id="currentDateTime">{{ now()->translatedFormat('l, d F Y') }}
+                        <span id="clock" class="ms-1"></span>
+                    </span>
                 </div>
 
                 @auth
@@ -366,7 +532,6 @@
                         </div>
                         <i class="fas fa-chevron-down ms-1" style="font-size: 0.75rem; color: #6b7280;"></i>
 
-                        <!-- Dropdown Menu -->
                         <div class="dropdown-menu-custom" id="userDropdown">
                             <form action="{{ route('logout') }}" method="POST">
                                 @csrf
@@ -420,15 +585,43 @@
         </main>
     </div>
 
-    <!-- Move jQuery here, before Bootstrap JS -->
     <script src="{{ asset('public/js/jquery-3.7.0.min.js') }}"></script>
     <script src="{{ asset('public/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('public/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('public/js/dataTables.bootstrap5.min.js') }}"></script>
 
     <script>
-        // User Dropdown Logic
-        const userMenuBtn = document.getElementById('userMenuBtn');
+        // ── Sidebar Mobile Toggle ──────────────────────────────────
+        const sidebar   = document.getElementById('sidebar');
+        const overlay   = document.getElementById('sidebar-overlay');
+        const toggleBtn = document.getElementById('sidebarToggleBtn');
+        const closeBtn  = document.getElementById('sidebarCloseBtn');
+
+        function openSidebar() {
+            sidebar.classList.add('sidebar-open');
+            overlay.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeSidebar() {
+            sidebar.classList.remove('sidebar-open');
+            overlay.classList.remove('show');
+            document.body.style.overflow = '';
+        }
+
+        if (toggleBtn) toggleBtn.addEventListener('click', openSidebar);
+        if (closeBtn)  closeBtn.addEventListener('click', closeSidebar);
+        if (overlay)   overlay.addEventListener('click', closeSidebar);
+
+        // Auto-close sidebar when a nav link is tapped on mobile
+        document.querySelectorAll('#sidebar .nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 992) closeSidebar();
+            });
+        });
+
+        // ── User Dropdown ──────────────────────────────────────────
+        const userMenuBtn  = document.getElementById('userMenuBtn');
         const userDropdown = document.getElementById('userDropdown');
 
         if (userMenuBtn) {
@@ -444,13 +637,11 @@
             });
         }
 
-        // Real-time Clock
+        // ── Real-time Clock ────────────────────────────────────────
         function updateClock() {
             const now = new Date();
             const timeString = now.toLocaleTimeString('id-ID', {
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit'
+                hour: '2-digit', minute: '2-digit', second: '2-digit'
             });
             document.getElementById('clock').textContent = timeString;
         }
